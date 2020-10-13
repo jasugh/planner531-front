@@ -21,7 +21,7 @@ const styles = makeStyles((theme) => ({
     },
     tableHeaders: {
         width: 60,
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
     },
     paper: {
         margin: 10,
@@ -130,7 +130,7 @@ const StartDetails = props => {
                         <TableBody>
                             { rows.map((row, index) => (
                                 <TableRow key={ row.week }>
-                                    <TableCell className={ classes.tableHeaders } component="th" scope="row">
+                                    <TableCell className={ classes.tableHeaders } style={{whiteSpace: 'nowrap'}} component="th" scope="row">
                                         { row.week }
                                     </TableCell>
                                     <TableCell style={ {width: 90} }>

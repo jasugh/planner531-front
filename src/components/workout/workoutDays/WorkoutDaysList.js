@@ -30,36 +30,6 @@ const WorkoutDaysList = props => {
         return null;
     }
 
-    // let cycle = 0;
-    // const checkCycle = (c) => {
-    //     if (cycle === c) {
-    //         return null;
-    //     } else {
-    //         cycle = c;
-    //         return <h4>Workout Cycle { cycle }</h4>;
-    //     }
-    // };
-    //
-    // let week = 0;
-    // const checkWeek = (w) => {
-    //     if (week === w) {
-    //         return null;
-    //     } else {
-    //         week = w;
-    //         return <h4>Workout Week { week }</h4>;
-    //     }
-    // };
-    //
-    // let day = 0;
-    // const checkDay = (d) => {
-    //     if (day === d) {
-    //         return null;
-    //     } else {
-    //         day = d;
-    //         return <h4>Workout Day { day }</h4>;
-    //     }
-    // };
-
     const workoutDays = (
         <List style={ {maxHeight: 800, overflow: "auto"} } component="nav" key={ "c" }>
             { workoutDaysList.workoutDays.cycleDtos.map((woCycle, i) => {
@@ -89,7 +59,8 @@ const WorkoutDaysList = props => {
                                                                     selected={ selectedSet === iiii }
                                                                     onClick={ event => onSetListClick(iiii) }
                                                                 >
-                                                                    <Grid container justify='space-around' alignItems='center'>
+                                                                    <Grid container justify='space-around'
+                                                                          alignItems='center'>
                                                                         <Grid item>
                                                                             { woSet.kgs }
                                                                         </Grid>
@@ -130,8 +101,12 @@ const WorkoutDaysList = props => {
                                                         { openDay[iii] ? <ExpandLess/> : <ExpandMore/> }
                                                     </ListItem>
                                                     <Collapse in={ openDay[iii] } timeout="auto" unmountOnExit>
-                                                        <Grid container  justify='space-around' alignItems='center'>
-                                                            <Grid item style={{marginLeft: 20, paddingTop: 0, paddingBottom: 0}}>
+                                                        <Grid container justify='space-around' alignItems='center'>
+                                                            <Grid item style={ {
+                                                                marginLeft: 20,
+                                                                paddingTop: 0,
+                                                                paddingBottom: 0
+                                                            } }>
                                                                 <Typography
                                                                     variant="caption"
                                                                 >
@@ -140,7 +115,7 @@ const WorkoutDaysList = props => {
                                                             </Grid>
                                                             <Grid item>
                                                                 <Typography
-                                                                variant="caption"
+                                                                    variant="caption"
                                                                 >
                                                                     Reps
                                                                 </Typography>

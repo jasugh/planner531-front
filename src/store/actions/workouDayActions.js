@@ -8,11 +8,7 @@ export const getWorkoutDaysByLoginId = (userId) => {
 
         axios.get(`/api/plan/${ userId }/user`,)
             .then(response => {
-
-                console.log((response.data));
-
                 dispatch(getWorkoutDaysData(response.data));
-
             })
             .catch(error => {
                 if (error.response.data.message && error.response.data.field) {
@@ -77,13 +73,11 @@ export const saveWorkoutDays = workoutDaysData => {
     };
 };
 
-
 export const loadingWorkoutDays = () => {
     return {
         type: actionTypes.LOADING_WORKOUT_DAY
     };
 };
-
 
 export const stopLoadingWorkoutDays = () => {
     return {
@@ -104,4 +98,3 @@ export const clearError = () => {
         type: actionTypes.CLEAR_ERROR
     };
 };
-

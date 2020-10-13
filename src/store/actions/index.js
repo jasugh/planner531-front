@@ -30,8 +30,13 @@ export {
 
 export {
     getWorkoutDaysByLoginId,
-    addWorkoutDays
+    addWorkoutDays,
 } from './workouDayActions';
+
+export {
+    getNextWorkoutByLoginId
+} from './workoutActions';
+
 
 export {
     sendError,

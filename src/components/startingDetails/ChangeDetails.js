@@ -54,6 +54,8 @@ const ChangeDetails = props => {
         <Paper className={ classes.paper } elevation={ 2 }>
             <Grid container justify="center" alignItems="center">
 
+                {/*      Rounding values are not needed for now. Kilos are always rounded up to next 2.5    */}
+
                 {/*<SectionTitle*/}
                 {/*    toolTip={ "" }*/}
                 {/*    title={ "Round values to the nearest of" }*/}
@@ -97,7 +99,7 @@ const ChangeDetails = props => {
                 </Grid>
 
                 <SectionTitle
-                    toolTip={ "After each of the four week phase, the lifter will increase his maxes no more than " +
+                    toolTip={ "After each of the four week phase, the lifter will increase her/his maxes no more than " +
                     "2,5 kilos per upper body lift, and 5 kilos for lower body lifts. These increases are to the " +
                     "max that you’re basing your percentages on." }
 

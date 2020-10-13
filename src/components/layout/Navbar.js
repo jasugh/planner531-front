@@ -99,6 +99,14 @@ const Navbar = (props) => {
                         button
                         onClick={ onSetDrawerOpen }
                         component={ renderLink }
+                        to="/workout"
+                    >
+                        <ListItemText primary="Next workout"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
                         to="/category"
                     >
                         <ListItemText primary="Categories"/>

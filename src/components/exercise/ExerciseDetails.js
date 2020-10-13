@@ -167,7 +167,6 @@ const ExerciseDetails = props => {
                     cancel
                 </Button>
             </Grid>
-
         </form>
     );
 };
