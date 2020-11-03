@@ -5,29 +5,20 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Tooltip from "@material-ui/core/Tooltip";
-
-import isEmpty from '../../validation/is-empty';
-import * as actions from '../../store/actions/index';
-import ExerciseDetails from './ExerciseDetails';
-import ExerciseList from './ExerciseList';
-import GeneralError from '../common/GeneralError';
-import Header from '../common/Header';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
+import isEmpty from '../../validation/is-empty';
+import calculateOneRm from '../common/calculateOneRm';
+import * as actions from '../../store/actions/index';
+
+import ExerciseDetails from './ExerciseDetails';
+import ExerciseList from './ExerciseList';
+import Header from '../common/Header';
+import Loading from '../common/Loading';
+
 const styles = makeStyles((theme) => ({
-    layout: {
-        width: 'auto',
-        marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up(400 + theme.spacing(2) * 2)]: {
-            width: 400,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        },
-    },
     fabBottom: {
         margin: theme.spacing(1),
         position: "fixed",
@@ -44,7 +35,7 @@ const styles = makeStyles((theme) => ({
 
 const Exercise = props => {
     const [showAddScreen, setShowAddScreen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState(-1);
     const [open, setOpen] = useState('');
     const [buttonText, setButtonText] = useState('add');
     const [exerciseData, setExerciseData] = useState(
@@ -54,6 +45,9 @@ const Exercise = props => {
             categoryId: '',
             restTime: 0,
             weightIncrement: 0,
+            oneRmKg: 0,
+            oneRmReps: 0,
+            oneRm: 0,
             notes: ''
         });
 
@@ -73,12 +67,15 @@ const Exercise = props => {
                 categoryId: props.category.categories[selectedCategory].id,
                 restTime: 0,
                 weightIncrement: 0,
+                oneRmKg: 0,
+                oneRmReps: 0,
+                oneRm: 0,
                 notes: ''
             });
             setShowAddScreen(true);
             setButtonText('add');
         } else {
-            props.onSendError("No categories found")
+            props.onSendError("Select a category");
         }
     };
 
@@ -92,6 +89,7 @@ const Exercise = props => {
     };
 
     const onCategoryListClick = (index) => {
+        props.onClearError();
         let o = [];
         o[index] = !open[index];
         setOpen(o);
@@ -107,6 +105,9 @@ const Exercise = props => {
             categoryId: props.category.categories[selectedCategory].id,
             restTime: props.category.categories[selectedCategory].exercises[index].restTime,
             weightIncrement: props.category.categories[selectedCategory].exercises[index].weightIncrement,
+            oneRmKg: props.category.categories[selectedCategory].exercises[index].oneRmKg,
+            oneRmReps: props.category.categories[selectedCategory].exercises[index].oneRmReps,
+            oneRm: props.category.categories[selectedCategory].exercises[index].oneRm,
             notes: props.category.categories[selectedCategory].exercises[index].notes
         });
     };
@@ -119,6 +120,9 @@ const Exercise = props => {
             categoryId: '',
             restTime: 0,
             weightIncrement: 0,
+            oneRmKg: 0,
+            oneRmReps: 0,
+            oneRm: 0,
             notes: ''
         });
         setShowAddScreen(false);
@@ -138,6 +142,30 @@ const Exercise = props => {
         );
     };
 
+    const calculate1RM = (name, value) => {
+        onChangeExercise(name, value);
+
+        switch (name) {
+            case 'oneRmKg' :
+                update1RM('oneRm', value, exerciseData.oneRmReps);
+                break;
+            case'oneRmReps':
+                update1RM('oneRm', exerciseData.oneRmKg, value);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const update1RM = (oneRM, kg, reps) => {
+        setExerciseData((state) =>
+            ({
+                ...state,
+                [oneRM]: calculateOneRm(kg, reps)
+            })
+        );
+    };
+
     let screenRows = '';
 
     const actionsScreenRows = (
@@ -148,6 +176,7 @@ const Exercise = props => {
                 buttonText={ buttonText }
                 error={ props.error }
                 onChangeExercise={ onChangeExercise }
+                calculate1RM={ calculate1RM }
                 onAddUpdate={ onAddUpdate }
                 onDelete={ onDelete }
                 onCancel={ onCancel }
@@ -165,17 +194,8 @@ const Exercise = props => {
         />
     );
 
-    const generalError = (
-        <GeneralError
-            error={ props.error }
-        />
-    );
-
     if (showAddScreen || (!isEmpty(props.error.message) && !isEmpty(props.error.field))) {
         screenRows = actionsScreenRows;
-    }
-    if (!isEmpty(props.error.message) && isEmpty(props.error.field)) {
-        screenRows = generalError;
     }
 
     return (
@@ -200,30 +220,27 @@ const Exercise = props => {
                 </Fab>
                 <Snackbar
                     open={ !isEmpty(props.error.message) }
-                    anchorOrigin={ {vertical: 'bottom', horizontal: 'center' }}
+                    anchorOrigin={ {vertical: 'bottom', horizontal: 'center'} }
                 >
                     <Alert severity="error">
-                        { props.error.message}
+                        { props.error.message }
                     </Alert>
                 </Snackbar>
             </Grid>
-            <div className={ classes.layout }>
-                { props.category.loading ?
-                    <Grid container justify="center">
-                        <CircularProgress/>
-                    </Grid>
-                    :
-                    screenRows }
-            </div>
+
+            { props.category.loading ?
+                <Loading/>
+                :
+                screenRows }
         </div>
     );
 };
 
 const mapStateToProps = state => {
     return {
-        exercise: state.exercise,
-        category: state.category,
-        error: state.error
+        exercise: state.exerciseReducer,
+        category: state.categoryReducer,
+        error: state.errorReducer
     };
 };
 

@@ -5,7 +5,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import isEmpty from '../../validation/is-empty';
@@ -14,18 +13,9 @@ import CategoryDetails from './CategoryDetails';
 import CategoryList from './CategoryList';
 import GeneralError from '../common/GeneralError';
 import Header from '../common/Header';
+import Loading from '../common/Loading';
 
 const styles = makeStyles((theme) => ({
-    layout: {
-        width: 'auto',
-        marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up(400 + theme.spacing(2) * 2)]: {
-            width: 400,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        },
-    },
     fabBottom: {
         margin: theme.spacing(1),
         position: "fixed",
@@ -162,29 +152,25 @@ const Category = props => {
                         title={ "Add a new category" }
                     >
                         <AddIcon
-
                             color="inherit"
                         />
                     </Tooltip>
                 </Fab>
             </Grid>
 
-            <div className={ classes.layout }>
-                { props.category.loading ?
-                    <Grid container justify="center">
-                        <CircularProgress/>
-                    </Grid>
-                    :
-                    screenRows }
-            </div>
+            { props.category.loading ?
+                <Loading/>
+                :
+                screenRows }
+
         </div>
     );
 };
 
 const mapStateToProps = state => {
     return {
-        category: state.category,
-        error: state.error
+        category: state.categoryReducer,
+        error: state.errorReducer
     };
 };
 

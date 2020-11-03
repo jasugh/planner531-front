@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Header = ({header}) => {
     return (
-        <Grid container justify='center' style={ {marginTop: 10} }>
+        <Grid container justify='center' style={ {marginTop: 10, marginBottom: 10} }>
             <Typography
                 color="primary"
                 variant="h6"

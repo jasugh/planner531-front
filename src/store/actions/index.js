@@ -22,6 +22,11 @@ export {
 } from './exerciseActions';
 
 export {
+    getMainExercises,
+    changeMainExercise
+} from './mainExerciseActions';
+
+export {
     getStart,
     addStart,
     removeStart,
@@ -34,9 +39,18 @@ export {
 } from './workouDayActions';
 
 export {
-    getNextWorkoutByLoginId
+    getNextWorkoutByLoginId,
+    skipWorkoutById,
+    completeWorkoutById
 } from './workoutActions';
 
+export {
+    getAssistanceExercises,
+    addAssistanceExercise,
+    changeAssistanceExercise,
+    removeAssistanceExercise,
+    loadingAssistanceExercises
+} from './assistanceExerciseActions';
 
 export {
     sendError,

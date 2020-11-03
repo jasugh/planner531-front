@@ -1,13 +1,14 @@
 import axios from 'axios';
 import * as actionTypes from '../actions/actionTypes';
+import * as workoutDays  from '../actions/workouDayActions';
 
-export const getStart = (userId) => {
+export const getStart = (loginId) => {
     return dispatch => {
         dispatch(clearError());
         dispatch(loadingStart());
 
         // TODO: make these urls shorter
-        axios.get(`/api/starting/${ userId }/user`,)
+        axios.get(`/api/starting/${ loginId }/user`,)
             .then(response => {
                 if (!response.data) {
                     dispatch(getUserStart({}));
@@ -38,7 +39,7 @@ export const addStart = startData => {
                 dispatch(getUserStart(res.data));
 
                 // Add workouts according to the starting details information
-                // dispatch(addWorkoutDays(res.data.id));
+                dispatch(workoutDays.addWorkoutDays(res.data.id));
 
             })
             .catch(error => {

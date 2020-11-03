@@ -6,25 +6,13 @@ import {Grid} from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import isEmpty from '../../validation/is-empty';
+import calculateOneRm from '../common/calculateOneRm';
 import * as actions from '../../store/actions/index';
+
 import GeneralError from '../common/GeneralError';
 import Header from '../common/Header';
 import StartDetails from './StartDetails';
 import moment from 'moment';
-// import PlanFound from './PlanFound';
-
-const styles = makeStyles((theme) => ({
-    layout: {
-        width: 400,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        [theme.breakpoints.down('md')]: {
-            width: 335,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        }
-    }
-}));
 
 const Start = props => {
     const [outputOnly, setOutputOnly] = useState(false);
@@ -58,6 +46,7 @@ const Start = props => {
     // Get initial data
     useEffect(() => {
         props.onGetStart(props.login.id);
+        props.onGetMainExercises(props.login.id);
     }, []);
 
     useEffect(() => {
@@ -66,22 +55,22 @@ const Start = props => {
             setStartData({
                 pressKg: props.startingDetails.startingDetails.pressKg,
                 pressReps: props.startingDetails.startingDetails.pressReps,
-                press1RM: calculateOneRM(
+                press1RM: calculateOneRm(
                     props.startingDetails.startingDetails.pressKg,
                     props.startingDetails.startingDetails.pressReps),
                 deadLiftKg: props.startingDetails.startingDetails.deadLiftKg,
                 deadLiftReps: props.startingDetails.startingDetails.deadLiftReps,
-                deadLift1RM: calculateOneRM(
+                deadLift1RM: calculateOneRm(
                     props.startingDetails.startingDetails.deadLiftKg,
                     props.startingDetails.startingDetails.deadLiftReps),
                 benchPressKg: props.startingDetails.startingDetails.benchPressKg,
                 benchPressReps: props.startingDetails.startingDetails.benchPressReps,
-                benchPress1RM: calculateOneRM(
+                benchPress1RM: calculateOneRm(
                     props.startingDetails.startingDetails.benchPressKg,
                     props.startingDetails.startingDetails.benchPressReps),
                 squatKg: props.startingDetails.startingDetails.squatKg,
                 squatReps: props.startingDetails.startingDetails.squatReps,
-                squat1RM: calculateOneRM(
+                squat1RM: calculateOneRm(
                     props.startingDetails.startingDetails.squatKg,
                     props.startingDetails.startingDetails.squatReps),
                 weightRounding: props.startingDetails.startingDetails.weightRounding.toString(),
@@ -125,11 +114,27 @@ const Start = props => {
                 w4percentages: [40, 50, 60],
             });
         }
+    }, [props.startingDetails.startingDetails]);
 
-    }, [props.startingDetails.startingDetails && !props.startingDetails.loading]);
-
-    // Styling
-    const classes = styles();
+    useEffect(() => {
+        if (props.mainExercise.mainExercises.length > 0) {
+            setStartData({
+                ...startData,
+                pressKg: props.mainExercise.mainExercises[0].oneRmKg,
+                pressReps: props.mainExercise.mainExercises[0].oneRmReps,
+                press1RM: props.mainExercise.mainExercises[0].oneRm,
+                deadLiftKg: props.mainExercise.mainExercises[1].oneRmKg,
+                deadLiftReps: props.mainExercise.mainExercises[1].oneRmReps,
+                deadLift1RM: props.mainExercise.mainExercises[1].oneRm,
+                benchPressKg: props.mainExercise.mainExercises[2].oneRmKg,
+                benchPressReps: props.mainExercise.mainExercises[2].oneRmReps,
+                benchPress1RM: props.mainExercise.mainExercises[2].oneRm,
+                squatKg: props.mainExercise.mainExercises[3].oneRmKg,
+                squatReps: props.mainExercise.mainExercises[3].oneRmReps,
+                squat1RM: props.mainExercise.mainExercises[3].oneRm,
+            });
+        }
+    }, [props.mainExercise.mainExercises]);
 
     const onGeneratePlan = () => {
         const now = new Date();
@@ -215,21 +220,9 @@ const Start = props => {
         setStartData((state) =>
             ({
                 ...state,
-                [oneRM]: calculateOneRM(kg, reps)
+                [oneRM]: calculateOneRm(kg, reps)
             })
         );
-    };
-
-    //Epley formula 1rm = w(1 +r/30), assuming that r > 1
-    //  (Brzycki formula 1rm = w / (1.0278 - 0.0278 *r))
-    const calculateOneRM = (kg, reps) => {
-        let oR = '';
-        if (reps === 1 || reps === '1') {
-            oR = kg;
-        } else if (reps > 1) {
-            oR = Math.round(kg * (1 + reps / 30));
-        }
-        return oR;
     };
 
     const changePercentages = (set, value, index) => {
@@ -311,33 +304,33 @@ const Start = props => {
     return (
         <>
             <Header header={ "Starting Details" }/>
-
-            <div className={ classes.layout }>
-                { props.startingDetails.loading ?
-                    <Grid container justify="center">
-                        <CircularProgress/>
-                    </Grid>
-                    :
-                    screenRows
-                }
-            </div>
+            { props.startingDetails.loading || props.exercise.loading ?
+                <Grid container justify="center">
+                    <CircularProgress/>
+                </Grid>
+                :
+                screenRows
+            }
         </>
     );
 };
 
 const mapStateToProps = state => {
     return {
-        startingDetails: state.startingDetails,
-        login: state.login,
-        error: state.error
+        startingDetails: state.startingDetailsReducer,
+        mainExercise: state.mainExerciseReducer,
+        exercise: state.exerciseReducer,
+        login: state.loginReducer,
+        error: state.errorReducer
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetStart: (id) => dispatch(actions.getStart(id)),
+        onGetStart: (loginId) => dispatch(actions.getStart(loginId)),
         onAddStart: (startData) => dispatch(actions.addStart(startData)),
         onRemoveStart: (id) => dispatch(actions.removeStart(id)),
+        onGetMainExercises: (loginId) => dispatch(actions.getMainExercises(loginId)),
         onClearError: () => dispatch(actions.clearError())
     };
 };

@@ -21,7 +21,7 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         authenticated: true,
         user: action.user,
-        loading: false,
+        // loading: false,
       };
     case actionTypes.GET_ID_START :
       return {

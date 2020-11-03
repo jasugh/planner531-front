@@ -62,7 +62,7 @@ const WorkoutDaysList = props => {
                                                                     <Grid container justify='space-around'
                                                                           alignItems='center'>
                                                                         <Grid item>
-                                                                            { woSet.kgs }
+                                                                            { parseFloat(woSet.kgs).toFixed(1) }
                                                                         </Grid>
                                                                         <Grid item>
                                                                             { woSet.reps }
@@ -110,7 +110,7 @@ const WorkoutDaysList = props => {
                                                                 <Typography
                                                                     variant="caption"
                                                                 >
-                                                                    Kg
+                                                                    Kgs
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item>

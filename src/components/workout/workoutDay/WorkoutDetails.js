@@ -3,175 +3,157 @@ import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import {Grid} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import WorkoutSets from './WorkoutSets';
+import WorkoutSetsHeader from './WorkoutSetsHeader';
+import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
+import {PlayArrow, SkipNext} from '@material-ui/icons';
+import WorkoutHeader from './WorkoutHeader';
+import isEmpty from '../../../validation/is-empty';
 
 const styles = makeStyles((theme) => ({
-    layout: {
-        width: 400,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        [theme.breakpoints.down('md')]: {
-            width: 335,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-        }
-    },
-    typographyHeader: {
-        fontWeight: 700
-    }
-}));
+        typographyHeader: {
+            fontWeight: 700
+        },
+        fab: {
+            bottom: theme.spacing(2),
+            right: theme.spacing(2)
+        },
+    })
+);
 
 const WorkoutDetails = props => {
     // Styling
     const classes = styles();
     // Properties
-    const {workout} = props.workout;
+    const {workout, onSkipWorkoutClick, onStartWorkoutClick} = props;
 
-    let warmUp = workout.workoutDaySets.filter((s) => s.typeOfSet === 'W');
-    let main = workout.workoutDaySets.filter((s) => s.typeOfSet === 'M');
-    let bbb = workout.workoutDaySets.filter((s) => s.typeOfSet === 'B');
+    if(isEmpty(workout)) return null;
 
-    let warmUpLines = (
-        <div>
-            { warmUp.map((set, i) => {
-                return (
-                    <div key={ i }>
-                        { set.kgs }
-                        { set.reps }
-                    </div>
-                );
-            }) }
-        </div>
-    );
+    let exercises = workout.workoutDayExercises[0];
 
-    let mainLines = (
-        <div>
-            { main.map((set, i) => {
-                return (
-                    <div key={ i }>
-                        { set.kgs }
-                        { set.reps }
-                    </div>
-                );
-            }) }
-        </div>
-    );
-    let bbbLines = (
-        <div>
-            { bbb.map((set, i) => {
-                return (
-                    <div key={ i }>
-                        { set.kgs }
-                        { set.reps }
-                    </div>
-                );
-            }) }
-        </div>
-    );
+    let warmUpLines = [];
+    warmUpLines.push(<WorkoutSetsHeader key={ 'W' }/>);
+    warmUpLines.push(exercises.workoutDaySets.map((set, i) => {
+        if (set.typeOfSet === 'W') {
+
+            return (
+                <WorkoutSets key={ 'W' + i }
+                             kgs={ set.kgs }
+                             reps={ set.reps }
+                />
+            );
+        }
+    }));
+
+    let mainLines = [];
+    mainLines.push(<WorkoutSetsHeader key={ 'M' }/>);
+    mainLines.push(exercises.workoutDaySets.map((set, i) => {
+        if (set.typeOfSet === 'M') {
+
+            return (
+                <WorkoutSets key={ 'M' + i }
+                             kgs={ set.kgs }
+                             reps={ set.reps }
+                />
+            );
+        }
+    }));
+
+    let bbbLines = [];
+    bbbLines.push(<WorkoutSetsHeader key={ 'B' }/>);
+    bbbLines.push(exercises.workoutDaySets.map((set, i) => {
+        if (set.typeOfSet === 'B') {
+
+            return (
+                <WorkoutSets key={ 'B' + i }
+                             kgs={ set.kgs }
+                             reps={ set.reps }
+                />
+            );
+        }
+    }));
 
     return (
-        <Paper className={ classes.paper } elevation={ 2 }>
-            <Grid container justify="center" alignItems="center">
-                <Grid item style={ {margin: 10} }>
-                    <Typography
-                        className={ classes.typographyHeader }
-                        variant="subtitle1"
-                        color="primary"
-                    >
-                        { workout.exercise.name }
-                    </Typography>
-                </Grid>
-            </Grid>
-            <Grid container justify="center" alignItems="center">
-                <Grid item style={ {marginRight: 2} }>
-                    <Typography
-                        variant="subtitle2"
-                        color="primary"
-                    >
-                        Cycle
-                    </Typography>
-                </Grid>
-                <Grid item style={ {marginRight: 10} }>
-                    <Typography
-                        variant="subtitle2"
-                        color="primary"
-                    >
-                        { workout.cycle }
-                    </Typography>
-                </Grid>
-                <Grid item style={ {marginRight: 2} }>
-                    <Typography
-                        variant="subtitle2"
-                        color="primary"
-                    >
-                        Week
-                    </Typography>
-                </Grid>
-                <Grid item style={ {marginRight: 10} }>
-                    <Typography
-                        variant="subtitle2"
-                        color="primary"
-                    >
-                        { workout.week }
-                    </Typography>
-                </Grid>
-                <Grid item style={ {marginRight: 2} }>
-                    <Typography
-                        variant="subtitle2"
-                        color="primary"
-                    >
-                        Day
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography
-                        variant="subtitle2"
-                        color="primary"
-                    >
-                        { workout.dayNumber }
-                    </Typography>
-                </Grid>
-            </Grid>
+        <>
+            <Paper elevation={ 2 }>
+                <WorkoutHeader
+                    workout={ workout }
+                />
+            </Paper>
 
-            <Grid container justify="center" alignItems="center">
-                <Grid item style={ {margin: 10} }>
+            <Card elevation={ 2 }>
+                <Grid item style={ {margin: 5} }>
                     <Typography
                         className={ classes.typographyHeader }
                         variant="subtitle2"
                         color="primary"
                     >
-                        Warmup
+                        { exercises.exercise.name } - Warmup
                     </Typography>
-                    { warmUpLines }
                 </Grid>
-            </Grid>
 
-            <Grid container justify="center" alignItems="center">
-                <Grid item style={ {margin: 10} }>
+                { warmUpLines }
+            </Card>
+
+            <Card elevation={ 2 }>
+                <Grid item style={ {margin: 5} }>
                     <Typography
                         className={ classes.typographyHeader }
                         variant="subtitle2"
                         color="primary"
                     >
-                        Main
+                        { exercises.exercise.name } - Main
                     </Typography>
-                    { mainLines }
                 </Grid>
-            </Grid>
+                { mainLines }
+            </Card>
 
-            <Grid container justify="center" alignItems="center">
-                <Grid item style={ {margin: 10} }>
+            <Card elevation={ 2 }>
+                <Grid item style={ {margin: 5} }>
                     <Typography
                         className={ classes.typographyHeader }
                         variant="subtitle2"
                         color="primary"
                     >
-                        BBB
+                        { exercises.exercise.name } - BBB
                     </Typography>
-                    { bbbLines }
                 </Grid>
+                { bbbLines }
+            </Card>
+            <Grid container style={ {marginTop: -100} } justify="flex-end" alignContent="flex-end" direction="column">
+                <Fab
+                    className={ classes.fab }
+                    style={ {marginBottom: 10} }
+                    color="primary"
+                    aria-label="add"
+                    onClick={ onSkipWorkoutClick }
+                >
+                    <Tooltip
+                        title={ "Skip this workout" }
+                    >
+                        <SkipNext
+                            color="inherit"
+                        />
+                    </Tooltip>
+                </Fab>
+                <Fab
+                    className={ classes.fab }
+                    color="primary"
+                    aria-label="add"
+                    onClick={ onStartWorkoutClick }
+                >
+                    <Tooltip
+                        title={ "Start workout" }
+                    >
+                        <PlayArrow
+                            color="inherit"
+                        />
+                    </Tooltip>
+                </Fab>
             </Grid>
-
-        </Paper>
+        </>
     );
 };
 

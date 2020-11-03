@@ -11,7 +11,7 @@ const styles = makeStyles((theme) => ({
         marginTop: 50,
         margin: 5,
         width: 110,
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("md")]: {
             marginTop: 40,
             margin: 5,
             width: 100,

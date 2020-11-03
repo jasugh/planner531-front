@@ -6,6 +6,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Header from '../../common/Header';
 import {makeStyles} from '@material-ui/core/styles';
 import WorkoutDetails from './WorkoutDetails';
+import WorkoutHeader from './WorkoutHeader';
+import Paper from '@material-ui/core/Paper';
 
 const styles = makeStyles((theme) => ({
     layout: {
@@ -17,38 +19,31 @@ const styles = makeStyles((theme) => ({
             marginLeft: 'auto',
             marginRight: 'auto',
         }
-    }
+    },
+    fabBottom: {
+        margin: theme.spacing(1),
+        position: "fixed",
+        bottom: theme.spacing(2),
+        right: theme.spacing(3),
+        zIndex: 1
+    },
 }));
 
-const Workout = props => {
-
-    useEffect(() => {
-        if(props.login.id) {
-            props.onGetNextWorkoutByLoginId(props.login.id);
-        }
-    }, [props.login.loading]);
-
+const SelectedWorkout = props => {
     // Styling
     const classes = styles();
 
-    let workoutDetails = (
-        <WorkoutDetails
-        workout={props.workout}
+    let workoutLines = [];
+    workoutLines = (
+        <WorkoutHeader
+            workout={ props.workout.workout }
         />
     );
 
     return (
         <>
-            <Header header={ "Next workout" }/>
-
             <div className={ classes.layout }>
-                { props.login.loading || props.workout.loading ?
-                    <Grid container justify="center">
-                        <CircularProgress/>
-                    </Grid>
-                    :
-                    workoutDetails
-                }
+                { workoutLines }
             </div>
         </>
     );
@@ -64,9 +59,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetNextWorkoutByLoginId: (loginId) => dispatch(actions.getNextWorkoutByLoginId(loginId)),
+        onCompleteWorkout: (id) => dispatch(actions.completeWorkoutById(id))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Workout);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedWorkout);
 

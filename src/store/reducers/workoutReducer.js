@@ -22,6 +22,16 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 workout: action.workout,
             };
+        case actionTypes.SKIP_WORKOUT :
+            return {
+                ...state,
+                workout: action.workout,
+            };
+        case actionTypes.COMPLETE_WORKOUT :
+            return {
+                ...state,
+                workout: action.workout,
+            };
         default:
             return state;
     }

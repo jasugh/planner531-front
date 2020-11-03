@@ -13,22 +13,33 @@ const styles = makeStyles((theme) => ({
         marginTop: 50,
         margin: 5,
         width: 110,
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("md")]: {
             marginTop: 40,
             margin: 5,
             width: 100,
         }
     },
+    numberStyle: {
+        width: 90,
+        marginRight: 10,
+    },
+    oneRm: {
+        width: 90,
+    },
 }));
 
 const ExerciseDetails = props => {
     // Properties
-    const {exerciseData, categoryList, buttonText, error, onChangeExercise, onAddUpdate, onDelete, onCancel} = props;
+    const {exerciseData, categoryList, buttonText, error, onChangeExercise, calculate1RM, onAddUpdate, onDelete, onCancel} = props;
     // Styling
     const classes = styles();
 
     const onChange = (event) => {
         onChangeExercise(event.target.name, event.target.value);
+    };
+
+    const onChangeKgReps = (event) => {
+        calculate1RM(event.target.name, event.target.value);
     };
 
     return (
@@ -50,7 +61,7 @@ const ExerciseDetails = props => {
                 fullWidth
             />
 
-            <Grid style={ {paddingTop: 20} } item xs={ 12 }>
+            <Grid style={ {paddingTop: 10} } item xs={ 12 }>
                 <Typography
                     variant="subtitle2"
                     color="primary"
@@ -76,13 +87,14 @@ const ExerciseDetails = props => {
             </Grid>
 
             <Typography
+                style={{paddingTop: 10}}
                 variant="subtitle2"
                 color="primary"
             >
                 Rest Time:
             </Typography>
             <TextField
-                style={ {width: 100} }
+                className={ classes.numberStyle }
                 value={ exerciseData.restTime }
                 error={ error.field === "restTimer" }
                 helperText={ error.message }
@@ -99,14 +111,14 @@ const ExerciseDetails = props => {
                 } }
             />
             <Typography
-                // style={{paddingLeft: 5}}
+                style={{paddingTop: 10}}
                 variant="subtitle2"
                 color="primary"
             >
                 Weight Increment:
             </Typography>
             <TextField
-                style={ {width: 100} }
+                className={ classes.numberStyle }
                 value={ exerciseData.weightIncrement }
                 error={ error.field === "weightIncrement" }
                 helperText={ error.message }
@@ -116,13 +128,67 @@ const ExerciseDetails = props => {
                 InputProps={ {
                     endAdornment: <InputAdornment position="end">kg</InputAdornment>,
                     inputProps: {
-                        min: "0.5",
+                        min: "2.5",
                         max: "20",
-                        step: "0.5"
+                        step: "2.5"
                     }
                 } }
             />
             <Typography
+                style={{paddingTop: 10}}
+                variant="subtitle2"
+                color="primary"
+            >
+                1RM:
+            </Typography>
+            <TextField
+                className={ classes.numberStyle }
+                value={ exerciseData.oneRmKg }
+                error={ error.field === 'pressKg' }
+                name="oneRmKg"
+                type="number"
+                onChange={ onChangeKgReps }
+                InputProps={ {
+                    endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+                    inputProps: {
+                        min: "1",
+                        max: "500",
+                        step: "1"
+                    }
+                } }
+            />
+            <TextField
+                className={ classes.numberStyle }
+                value={ exerciseData.oneRmReps }
+                error={ error.field === 'pressKg' }
+                name="oneRmReps"
+                type="number"
+                onChange={ onChangeKgReps }
+                InputProps={ {
+                    endAdornment: <InputAdornment position="end">reps</InputAdornment>,
+                    inputProps: {
+                        min: "1",
+                        max: "20",
+                        step: "1"
+                    }
+                } }
+            />
+            <TextField
+                className={ classes.oneRm }
+                disabled
+                value={ exerciseData.oneRm }
+                error={ error.field === 'pressKg' }
+                helperText={ error.field === 'pressKg' ? error.message : '' }
+                name="oneRm"
+                type="number"
+                InputProps={ {
+                    endAdornment: <InputAdornment position="end">1RM</InputAdornment>,
+                } }
+            />
+
+
+            <Typography
+                style={{paddingTop: 10}}
                 variant="subtitle2"
                 color="primary"
             >

@@ -40,7 +40,7 @@ const Navbar = (props) => {
                         onClick={ onLogout }
                         style={ {fontWeight: 700} }
                     >
-                        {props.login.user}
+                        { props.login.user }
                     </Button>
                 </Tooltip>
             </Typography>
@@ -80,7 +80,7 @@ const Navbar = (props) => {
                             color="inherit"
                             style={ {fontWeight: 700} }
                         >
-                            5/3/1 Calculator
+                            5/3/1 Planner
                         </Button>
                     </Typography>
                     <section style={ {marginLeft: "auto", marginRight: 10} }>
@@ -123,6 +123,22 @@ const Navbar = (props) => {
                         button
                         onClick={ onSetDrawerOpen }
                         component={ renderLink }
+                        to="/main"
+                    >
+                        <ListItemText primary="Main Exercises"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/assistance"
+                    >
+                        <ListItemText primary="Assistance Exercises"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
                         to="/starting"
                     >
                         <ListItemText primary="Starting Details"/>
@@ -133,8 +149,18 @@ const Navbar = (props) => {
                         component={ renderLink }
                         to="/plan"
                     >
-                        <ListItemText primary="Workout Plan"/>
+                        <ListItemText primary="Workout Plan - ei toimi"/>
                     </ListItem>
+
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/wo"
+                    >
+                        <ListItemText primary="Workout"/>
+                    </ListItem>
+
                 </List>
             </Drawer>
         </div>
@@ -143,7 +169,7 @@ const Navbar = (props) => {
 
 const mapStateToProps = state => {
     return {
-        login: state.login,
+        login: state.loginReducer,
     };
 };
 

@@ -5,7 +5,7 @@ const initialState = {
   loading: false
 };
 
-const startReducer = (state = initialState, action) => {
+const startingDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOADING_START :
       return {
@@ -43,4 +43,4 @@ const startReducer = (state = initialState, action) => {
   }
 };
 
-export default startReducer;
+export default startingDetailsReducer;

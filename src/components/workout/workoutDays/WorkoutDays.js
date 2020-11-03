@@ -123,9 +123,9 @@ const WorkoutDays = props => {
 
 const mapStateToProps = state => {
     return {
-        login: state.login,
-        error: state.error,
-        workoutDays: state.workoutDays
+        login: state.loginReducer,
+        error: state.errorReducer,
+        workoutDays: state.workoutDayReducer
     };
 };
 

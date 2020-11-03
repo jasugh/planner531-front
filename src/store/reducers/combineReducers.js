@@ -3,17 +3,21 @@ import {combineReducers} from 'redux';
 import loginReducer from './loginReducer';
 import categoryReducer from './categoryReducer';
 import exerciseReducer from './exerciseReducer';
-import startReducer from './startReducer';
-import errorReducer from './errorReducer';
+import mainExerciseReducer from './mainExerciseReducer';
+import assistanceExerciseReducer from './assistanceExerciseReducer';
+import startingDetailsReducer from './startingDetailsReducer';
 import workoutDayReducer from './workoutDayReducer';
 import workoutReducer from './workoutReducer';
+import errorReducer from './errorReducer';
 
 export default combineReducers({
-    login: loginReducer,
-    category: categoryReducer,
-    exercise: exerciseReducer,
-    startingDetails: startReducer,
-    workoutDays: workoutDayReducer,
-    workout: workoutReducer,
-    error: errorReducer
+    loginReducer: loginReducer,
+    categoryReducer: categoryReducer,
+    exerciseReducer: exerciseReducer,
+    mainExerciseReducer: mainExerciseReducer,
+    assistanceExerciseReducer: assistanceExerciseReducer,
+    startingDetailsReducer: startingDetailsReducer,
+    workoutDayReducer: workoutDayReducer,
+    workoutReducer: workoutReducer,
+    errorReducer: errorReducer
 });
