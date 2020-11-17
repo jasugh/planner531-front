@@ -283,7 +283,7 @@ const Start = props => {
 
     const generalError = (
         <GeneralError
-            error={ props.error }
+            error={ props.error.message }
         />
     );
 
@@ -297,9 +297,9 @@ const Start = props => {
     //     );
     // }
 
-    if (!isEmpty(props.error.message) && isEmpty(props.error.field)) {
-        screenRows = generalError;
-    }
+    // if (!isEmpty(props.error.message) && isEmpty(props.error.field)) {
+    //     screenRows = generalError;
+    // }
 
     return (
         <>

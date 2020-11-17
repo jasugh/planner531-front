@@ -16,10 +16,8 @@ const styles = makeStyles((theme) => ({
 );
 
 const ExerciseList = props => {
-    // Properties
     const {categoryList, onCategoryListClick, selectedCategory, onExerciseListClick, open} = props;
 
-    // Styling
     const classes = styles();
 
     return (

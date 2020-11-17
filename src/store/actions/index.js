@@ -23,8 +23,18 @@ export {
 
 export {
     getMainExercises,
-    changeMainExercise
+    changeMainExercise,
+    addAssistanceToMainExercise,
+    removeAssistanceFromMainExercise
 } from './mainExerciseActions';
+
+export {
+    getAssistanceExercises,
+    addAssistanceExercise,
+    changeAssistanceExercise,
+    removeAssistanceExercise,
+    loadingAssistanceExercises
+} from './assistanceExerciseActions';
 
 export {
     getStart,
@@ -36,21 +46,19 @@ export {
 export {
     getWorkoutDaysByLoginId,
     addWorkoutDays,
+    addExerciseToWorkout,
+    deleteExerciseFromWorkout
 } from './workouDayActions';
 
 export {
     getNextWorkoutByLoginId,
     skipWorkoutById,
-    completeWorkoutById
+    completeWorkoutById,
 } from './workoutActions';
 
 export {
-    getAssistanceExercises,
-    addAssistanceExercise,
-    changeAssistanceExercise,
-    removeAssistanceExercise,
-    loadingAssistanceExercises
-} from './assistanceExerciseActions';
+    getRoutineExerciseById
+} from './workoutRoutineActions';
 
 export {
     sendError,

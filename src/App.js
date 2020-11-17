@@ -15,9 +15,10 @@ import NextWorkout from './components/workout/workoutDay/NextWorkout';
 
 import PrivateRoute from './components/common/PrivateRoute';
 import * as actions from './store/actions/index';
-import SelectWorkout from './components/workout/workout/SelectWorkout';
+import SelectWorkout from './components/workout/workoutExercise/SelectWorkout';
 import AssistanceExercise from './components/assistanceExercise/AssistanceExercise';
 import MainExercise from './components/mainExercise/MainExercise';
+import TestTabs from './components/test/TestTabs';
 
 const styles = makeStyles((theme) => ({
     layout: {
@@ -64,6 +65,7 @@ const App = props => {
                     <PrivateRoute exact path="/plan" component={ WorkoutPlan }/>
                     <PrivateRoute exact path="/wo" component={ SelectWorkout }/>
                     <PrivateRoute exact path="/" component={ NextWorkout }/>
+                    <PrivateRoute exact path="/test" component={ TestTabs }/>
                     {/*<Redirect to="/"/>*/ }
                 </Switch>
             </div>

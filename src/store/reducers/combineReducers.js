@@ -9,6 +9,7 @@ import startingDetailsReducer from './startingDetailsReducer';
 import workoutDayReducer from './workoutDayReducer';
 import workoutReducer from './workoutReducer';
 import errorReducer from './errorReducer';
+import workoutRoutineReducer from './workoutRoutineReducer';
 
 export default combineReducers({
     loginReducer: loginReducer,
@@ -19,5 +20,6 @@ export default combineReducers({
     startingDetailsReducer: startingDetailsReducer,
     workoutDayReducer: workoutDayReducer,
     workoutReducer: workoutReducer,
+    workoutRoutineReducer: workoutRoutineReducer,
     errorReducer: errorReducer
 });

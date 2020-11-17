@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     workout: {},
+    completed: false,
     loading: true
 };
 

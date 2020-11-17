@@ -43,7 +43,6 @@ export const skipWorkoutById = (id) => {
     };
 };
 
-
 export const completeWorkoutById = (id) => {
     return dispatch => {
         dispatch(clearError());
@@ -76,6 +75,7 @@ export const stopLoadingWorkout = () => {
         type: actionTypes.STOP_LOADING_WORKOUT
     };
 };
+
 export const getWorkoutData = (workoutData) => {
     return {
         type: actionTypes.GET_WORKOUT,

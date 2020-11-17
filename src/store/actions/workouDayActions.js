@@ -50,7 +50,6 @@ export const addWorkoutDays = startingDetailsId => {
             .then(res => {
                 dispatch(saveWorkoutDays(res.data));
                 dispatch(stopLoadingWorkoutDays());
-                dispatch(getWorkoutDaysById(res.data));
             })
             .catch(error => {
                 dispatch(setError(error.response.data.message, error.response.data.field));
@@ -58,6 +57,40 @@ export const addWorkoutDays = startingDetailsId => {
             });
     };
 };
+
+export const addExerciseToWorkout = (exerciseId, workoutDay) => {
+    return dispatch => {
+        dispatch(clearError());
+        dispatch(loadingWorkoutDays());
+
+        axios.put(`/api/plan/${ exerciseId }/assistance`, workoutDay)
+            .then(res => {
+                dispatch(addExerciseToWo(res.data));
+                dispatch(stopLoadingWorkoutDays());
+            })
+            .catch(error => {
+                dispatch(setError(error.response.data.message, error.response.data.field));
+                dispatch(stopLoadingWorkoutDays());
+            });
+    };
+}
+
+export  const deleteExerciseFromWorkout = exerciseId => {
+    return dispatch => {
+        dispatch(clearError());
+        dispatch(loadingWorkoutDays());
+
+        axios.delete(`/api/plan/${ exerciseId }/exercise`)
+            .then(res => {
+                dispatch(deleteExerciseFromWo(res.data));
+                dispatch(stopLoadingWorkoutDays());
+            })
+            .catch(error => {
+                dispatch(setError(error.response.data.message, error.response.data.field));
+                dispatch(stopLoadingWorkoutDays());
+            });
+    };
+}
 
 export const getWorkoutDaysData = (workoutDaysData) => {
     return {
@@ -69,6 +102,20 @@ export const getWorkoutDaysData = (workoutDaysData) => {
 export const saveWorkoutDays = workoutDaysData => {
     return {
         type: actionTypes.SAVE_WORKOUT_DAY,
+        workoutDays: workoutDaysData
+    };
+};
+
+export const addExerciseToWo = workoutDaysData => {
+    return {
+        type: actionTypes.ADD_EXERCISE_TO_WORKOUT,
+        workoutDays: workoutDaysData
+    };
+};
+
+export const deleteExerciseFromWo = workoutDaysData => {
+    return {
+        type: actionTypes.DELETE_EXERCISE_FROM_WORKOUT,
         workoutDays: workoutDaysData
     };
 };

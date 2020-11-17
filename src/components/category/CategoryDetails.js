@@ -20,9 +20,8 @@ const styles = makeStyles((theme) => ({
 }));
 
 const CategoryDetails = props => {
-    // Properties
+
     const {categoryData, buttonText, error, onChangeCategory, onAddUpdate, onDelete, onCancel} = props;
-    // Styling
     const classes = styles();
 
     const onChange = (event) => {

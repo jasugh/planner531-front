@@ -21,14 +21,48 @@ export const getMainExercises = loginId => {
     };
 };
 
-export const changeMainExercise = (mainExerciseData, loginId)=> {
+export const changeMainExercise = (mainExerciseData, loginId) => {
     return dispatch => {
         dispatch(clearError());
         dispatch(loadingMainExercises());
 
-        axios.put(`/api/main/${ mainExerciseData.id }`, mainExerciseData)
+        axios.put('/api/main/', mainExerciseData)
             .then(res => {
                 dispatch(updateMainExercise(mainExerciseData));
+                dispatch(getMainExercises(loginId));
+            })
+            .catch(error => {
+                dispatch(setError(error.toString(), null));
+                dispatch(stopLoadingMainExercises());
+            });
+    };
+};
+
+export const addAssistanceToMainExercise = (exerciseId, mainExercise, loginId) => {
+    return dispatch => {
+        dispatch(clearError());
+        dispatch(loadingMainExercises());
+
+        axios.put(`/api/main/${ exerciseId }/assistance`, mainExercise)
+            .then(res => {
+                dispatch(updateMainExercise(res.data));
+                dispatch(getMainExercises(loginId));
+            })
+            .catch(error => {
+                dispatch(setError(error.toString(), null));
+                dispatch(stopLoadingMainExercises());
+            });
+    };
+};
+
+export const removeAssistanceFromMainExercise = (exerciseId, mainExercise, loginId) => {
+    return dispatch => {
+        dispatch(clearError());
+        dispatch(loadingMainExercises());
+
+        axios.put(`/api/main/${ exerciseId }/remove`, mainExercise)
+            .then(res => {
+                dispatch(deleteExerciseFromMainExercise(res.data));
                 dispatch(getMainExercises(loginId));
             })
             .catch(error => {
@@ -49,6 +83,12 @@ export const getMainExercise = (mainExercises) => {
     return {
         type: actionTypes.GET_MAIN_EXERCISE,
         exercises: mainExercises
+    };
+};
+
+export const deleteExerciseFromMainExercise = () => {
+    return {
+        type: actionTypes.DELETE_ASSISTANCE_EXERCISE,
     };
 };
 

@@ -5,11 +5,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {ExpandLess, ExpandMore} from '@material-ui/icons';
 import Collapse from '@material-ui/core/Collapse';
-import Grid from '@material-ui/core/Grid';
+
 import MainExerciseDetails from '../mainExercise/MainExerciseDetails';
 
 const MainExerciseList = props => {
-    // Properties
     const {
         mainExercises,
         onMainExerciseClick,
@@ -49,7 +48,8 @@ const MainExerciseList = props => {
                                 onClick={ event => onMainExerciseClick(i) }
                             >
                                 <ListItemText
-                                    primary={ `Exercise  ${ mainExercise_row.exerciseNumber } ` }
+                                    // primary={ `Exercise  ${ mainExercise_row.exerciseNumber } ` }
+                                    primary={ mainExercise_row.name }
                                 />
                                 { open[i] ? <ExpandLess/> : <ExpandMore/> }
                             </ListItem>

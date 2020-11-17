@@ -17,17 +17,25 @@ const styles = makeStyles((theme) => ({
             paddingLeft: theme.spacing(10),
             background: '#fafafa'
         },
+        deleteIcon: {
+            color: theme.palette.secondary.main,
+            fontSize: 20
+        },
     })
 );
 
 const AssistanceExerciseDetails = props => {
     // Properties
-    const {mainExercises, exercises, onAssistanceExerciseClick, onSelectExercise, selectedAssistanceExercise, open} = props;
+    const {mainExercises, exercises, onAssistanceExerciseClick, onSelectExercise, onDeleteExercise, selectedAssistanceExercise, open} = props;
     // Styling
     const classes = styles();
 
-    const onChange = (event, id) => {
-        onSelectExercise(event.target.value, id);
+    const onSelectEvent = (event, mainExercise) => {
+        onSelectExercise(event.target.value, mainExercise);
+    };
+
+    const onDeleteEvent = (exercise, mainExercise) => {
+        onDeleteExercise(exercise.id, mainExercise);
     };
 
     return (
@@ -35,60 +43,66 @@ const AssistanceExerciseDetails = props => {
             { mainExercises.map((mainExercise_row, i) => {
 
                     let collapseLines = [];
-                    collapseLines.push(
-                        <Select
-                            key={"S" + i}
-                            native
-                            fullWidth
-                            onChange={event => onChange(event, mainExercise_row.id)}
-                            name="name"
 
-                        >
-                            <option value="">
-                                Select exercise...
-                            </option>
-                            {exercises.map((row, index) => {
-                                return (
-                                    <option key={row.name} value={row.id}>
-                                        {row.name}
-                                    </option>
-                                )
-                            })}
-                        </Select>
+                    //Select drop down
+                    collapseLines.push(
+                        <div style={ {paddingLeft: 15, paddingRight: 15} }>
+                            <Select
+                                key={ "S" + i }
+                                native
+                                fullWidth
+                                onChange={ event => onSelectEvent(event, mainExercise_row) }
+                                name="name"
+
+                            >
+                                <option value="">
+                                    Select exercise...
+                                </option>
+                                { exercises.map((row, index) => {
+                                    return (
+                                        <option key={ row.name } value={ row.id }>
+                                            { row.name }
+                                        </option>
+                                    );
+                                }) }
+                            </Select>
+                        </div>
                     );
 
-                // collapseLines.push(
-                //     <Grid item xs={12} key={"b"}>
-                //         <List style={{maxHeight: 800, overflow: "auto"}} component="nav">
-                //             {this.state.add_exerciseA.map((a_row, index) => {
-                //                 return (
-                //                     <ListItem
-                //                         className={classes.listItem}
-                //                         divider
-                //                         key={index}
-                //                         index={index}
-                //                         button
-                //                         selected={this.state.selectedIndex === index}
-                //                         // onClick={event => this.onListItemClick(event, index)}
-                //                     >
-                //                         <ListItemText primary={a_row.add_exercise}/>
-                //                         <ListItemSecondaryAction>
-                //                             <IconButton
-                //                                 onClick={event => this.onDeleteClick(index, 'a')}
-                //                                 edge="end"
-                //                                 aria-label="delete"
-                //                             >
-                //                                 <DeleteIcon
-                //                                     className={classes.deleteIcon}
-                //                                 />
-                //                             </IconButton>
-                //                         </ListItemSecondaryAction>
-                //                     </ListItem>
-                //                 )
-                //             })}
-                //         </List>
-                //     </Grid>
-                // );
+                    //List of assistance exercises
+                    collapseLines.push(
+                        <Grid item xs={ 12 } key={ "b" }>
+                            <List style={ {maxHeight: 800, overflow: "auto"} } component="nav">
+                                { mainExercise_row.assistanceExercises.map((a_row, index) => {
+                                    return (
+                                        <ListItem
+                                            className={ classes.listItem }
+                                            divider
+                                            key={ index }
+                                            index={ index }
+                                            button
+                                            // selected={this.state.selectedIndex === index}
+                                            // onClick={event => this.onListItemClick(event, index)}
+                                        >
+                                            <ListItemText primary={ a_row.name }/>
+                                            <ListItemSecondaryAction>
+                                                <IconButton
+                                                    onClick={ event => onDeleteEvent(a_row, mainExercise_row) }
+                                                    edge="end"
+                                                    aria-label="delete"
+                                                >
+                                                    <DeleteIcon
+                                                        className={ classes.deleteIcon }
+                                                    />
+                                                </IconButton>
+                                            </ListItemSecondaryAction>
+                                        </ListItem>
+                                    );
+                                }) }
+                            </List>
+                        </Grid>
+                    );
+
 
                     return (
                         <div key={ i }>
@@ -103,9 +117,11 @@ const AssistanceExerciseDetails = props => {
                                 <ListItemText primary={ mainExercise_row.name }/>
                                 { open[i] ? <ExpandLess/> : <ExpandMore/> }
                             </ListItem>
-                            <Collapse in={ open[i] } timeout="auto" unmountOnExit>
-                                { collapseLines }
-                            </Collapse>
+                            <div>
+                                <Collapse in={ open[i] } timeout="auto" unmountOnExit>
+                                    { collapseLines }
+                                </Collapse>
+                            </div>
                         </div>
                     );
                 }

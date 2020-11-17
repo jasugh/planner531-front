@@ -161,6 +161,14 @@ const Navbar = (props) => {
                         <ListItemText primary="Workout"/>
                     </ListItem>
 
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/test"
+                    >
+                        <ListItemText primary="Test"/>
+                    </ListItem>
                 </List>
             </Drawer>
         </div>

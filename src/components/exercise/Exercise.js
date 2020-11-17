@@ -169,7 +169,6 @@ const Exercise = props => {
     let screenRows = '';
 
     const actionsScreenRows = (
-        <Grid container justify="center">
             <ExerciseDetails
                 exerciseData={ exerciseData }
                 categoryList={ props.category.categories }
@@ -181,7 +180,6 @@ const Exercise = props => {
                 onDelete={ onDelete }
                 onCancel={ onCancel }
             />
-        </Grid>
     );
 
     screenRows = (
@@ -199,7 +197,7 @@ const Exercise = props => {
     }
 
     return (
-        <div>
+        <>
             <Header header={ "Exercises" }/>
 
             <Grid container direction="column" justify='center'>
@@ -231,8 +229,10 @@ const Exercise = props => {
             { props.category.loading ?
                 <Loading/>
                 :
-                screenRows }
-        </div>
+                screenRows
+            }
+
+        </>
     );
 };
 

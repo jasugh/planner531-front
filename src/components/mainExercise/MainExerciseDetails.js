@@ -28,7 +28,6 @@ const styles = makeStyles((theme) => ({
 }));
 
 const MainExerciseDetails = props => {
-    // Properties
     const {
         mainExerciseData,
         error,
@@ -37,7 +36,6 @@ const MainExerciseDetails = props => {
         onUpdate,
     } = props;
 
-    // Styling
     const classes = styles();
 
     const onChange = (event) => {
@@ -51,16 +49,22 @@ const MainExerciseDetails = props => {
     return (
         <Grid container justify="center">
             <form>
-                <TextField
-                    value={ mainExerciseData.name }
-                    error={ error.field === "name" }
-                    helperText={ error.message }
-                    onChange={ onChange }
-                    required
-                    id="name"
-                    name="name"
-                    fullWidth
-                />
+                {/*<Typography*/ }
+                {/*    variant="subtitle2"*/ }
+                {/*    color="primary"*/ }
+                {/*>*/ }
+                {/*    Main Exercise:*/ }
+                {/*</Typography>*/ }
+                {/*<TextField*/ }
+                {/*    value={ mainExerciseData.name }*/ }
+                {/*    error={ error.field === "name" }*/ }
+                {/*    helperText={ error.message }*/ }
+                {/*    onChange={ onChange }*/ }
+                {/*    required*/ }
+                {/*    id="name"*/ }
+                {/*    name="name"*/ }
+                {/*    fullWidth*/ }
+                {/*/>*/ }
 
                 <Typography
                     style={ {paddingTop: 10} }

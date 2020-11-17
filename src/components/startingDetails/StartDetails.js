@@ -122,9 +122,9 @@ const StartDetails = props => {
                         <TableHead>
                             <TableRow>
                                 <TableCell className={ classes.tableHeaders }> </TableCell>
-                                <TableCell className={ classes.tableHeaders } style={{paddingLeft: 25}} >Set&nbsp;1</TableCell>
-                                <TableCell className={ classes.tableHeaders } style={{paddingLeft: 25}}>Set&nbsp;2</TableCell>
-                                <TableCell className={ classes.tableHeaders } style={{paddingLeft: 25}}>Set&nbsp;3</TableCell>
+                                <TableCell className={ classes.tableHeaders } style={{paddingLeft: 20}} >Set&nbsp;1</TableCell>
+                                <TableCell className={ classes.tableHeaders } style={{paddingLeft: 20}}>Set&nbsp;2</TableCell>
+                                <TableCell className={ classes.tableHeaders } style={{paddingLeft: 20}}>Set&nbsp;3</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

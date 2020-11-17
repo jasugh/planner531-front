@@ -24,9 +24,12 @@ const AssistanceExercise = props => {
         setSelectedAssistanceExercise(index);
     };
 
-    const onSelectExercise = (selectedExerciseId, mainExerciseId) => {
-        console.log('selectedExerciseId', selectedExerciseId);
-        console.log('mainExerciseId', mainExerciseId);
+    const onSelectExercise = (selectedExerciseId, mainExercise) => {
+        props.onAddAssistanceToMainExercise(selectedExerciseId, mainExercise, props.login.id);
+    };
+
+    const onDeleteExercise = (selectedExerciseId, mainExercise) => {
+        props.onRemoveExerciseFromMainExercise(selectedExerciseId, mainExercise, props.login.id);
     };
 
     let screenRows = '';
@@ -34,10 +37,11 @@ const AssistanceExercise = props => {
     screenRows = (
         <AssistanceExerciseDetails
             mainExercises={ props.mainExercise.mainExercises }
-            exercises={props.exercise.exercises}
-            assistanceExercises={props.assistanceExercise}
+            exercises={ props.exercise.exercises }
+            assistanceExercises={ props.assistanceExercise }
             onAssistanceExerciseClick={ onAssistanceExerciseClick }
-            onSelectExercise={onSelectExercise}
+            onSelectExercise={ onSelectExercise }
+            onDeleteExercise={ onDeleteExercise }
             selectedAssistanceExercise={ selectedAssistanceExercise }
             open={ open }
         />
@@ -68,11 +72,14 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetAssistanceExercises: () => dispatch(actions.getAssistanceExercises()),
-        onAddAssistanceExercise: (assistanceExerciseData) => dispatch(actions.addAssistanceExercise(assistanceExerciseData)),
-        onChangeAssistanceExercise: (assistanceExerciseData) => dispatch(actions.changeAssistanceExercise(assistanceExerciseData)),
-        onRemoveAssistanceExercise: (id) => dispatch(actions.removeAssistanceExercise(id)),
         onGetExercises: () => dispatch(actions.getExercises()),
         onGetMainExercises: (loginId) => dispatch(actions.getMainExercises(loginId)),
+        onAddAssistanceToMainExercise:
+            (selectedExerciseId, mainExercise, loginId) => dispatch(actions
+                .addAssistanceToMainExercise(selectedExerciseId, mainExercise, loginId)),
+        onRemoveExerciseFromMainExercise:
+            (selectedExerciseId, mainExercise, loginId) => dispatch(actions
+                .removeAssistanceFromMainExercise(selectedExerciseId, mainExercise, loginId)),
         onClearError: () => dispatch(actions.clearError()),
     };
 };

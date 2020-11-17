@@ -42,7 +42,6 @@ const styles = makeStyles((theme) => ({
 const ChangeDetails = props => {
     // Properties
     const {startData, outputOnly, error, onChangeStart} = props;
-
     // Styling
     const classes = styles();
 
