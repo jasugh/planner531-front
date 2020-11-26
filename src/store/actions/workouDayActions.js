@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from '../actions/actionTypes';
+import {getNextWorkoutByLoginId} from './workoutActions';
 
 export const getWorkoutDaysByLoginId = (userId) => {
     return dispatch => {
@@ -58,7 +59,7 @@ export const addWorkoutDays = startingDetailsId => {
     };
 };
 
-export const addExerciseToWorkout = (exerciseId, workoutDay) => {
+export const addExerciseToWorkout = (exerciseId, workoutDay, userId) => {
     return dispatch => {
         dispatch(clearError());
         dispatch(loadingWorkoutDays());
@@ -67,6 +68,9 @@ export const addExerciseToWorkout = (exerciseId, workoutDay) => {
             .then(res => {
                 dispatch(addExerciseToWo(res.data));
                 dispatch(stopLoadingWorkoutDays());
+
+                //Get updated workout exercises
+                dispatch(getNextWorkoutByLoginId(userId))
             })
             .catch(error => {
                 dispatch(setError(error.response.data.message, error.response.data.field));
@@ -75,7 +79,7 @@ export const addExerciseToWorkout = (exerciseId, workoutDay) => {
     };
 }
 
-export  const deleteExerciseFromWorkout = exerciseId => {
+export  const deleteExerciseFromWorkout = (exerciseId, userId) => {
     return dispatch => {
         dispatch(clearError());
         dispatch(loadingWorkoutDays());
@@ -84,6 +88,9 @@ export  const deleteExerciseFromWorkout = exerciseId => {
             .then(res => {
                 dispatch(deleteExerciseFromWo(res.data));
                 dispatch(stopLoadingWorkoutDays());
+
+                //Get updated workout exercises
+                dispatch(getNextWorkoutByLoginId(userId))
             })
             .catch(error => {
                 dispatch(setError(error.response.data.message, error.response.data.field));

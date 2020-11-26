@@ -23,6 +23,9 @@ const styles = makeStyles((theme) => ({
         iconColor: {
             background: theme.palette.primary.light
         },
+        minusPlusColor: {
+            background: theme.palette.button.secondary
+        },
         //Buttons
         buttonPadding: {
             margin: 15,
@@ -32,11 +35,9 @@ const styles = makeStyles((theme) => ({
 );
 
 const WorkoutExerciseWeightRep = props => {
-    const [error, setError] = useState('');
-    const [index, setIndex] = useState('');
-
     //Properties
-    const {kgs, reps, onAddKgs, onReduceKgs, onAddReps, onReduceReps} = props;
+    const {kgs, reps, index, error,  onAddKgs, onReduceKgs, onAddReps, onReduceReps, onSave, onUpdate} = props;
+
     //Styling
     const classes = styles();
 
@@ -46,8 +47,12 @@ const WorkoutExerciseWeightRep = props => {
     let save_update = 'update';
     let clear_delete = 'delete';
 
+    if (index === '') {
+        save_update = 'save';
+        clear_delete = 'clear';
+    }
 
-    const onSave = (event) => {
+    // const onSave = (event) => {
         // if (this.state.reps < 1) {
         //     setError({error: {reps: 'Please enter Reps'}});
         //     return;
@@ -67,7 +72,7 @@ const WorkoutExerciseWeightRep = props => {
         // w.exercises[0].sets = s;
         //
         // this.setState({workout: w});
-    };
+    // };
 
     const onChange = (event) => {
         // this.setState({[event.target.name]: event.target.value});
@@ -78,7 +83,7 @@ const WorkoutExerciseWeightRep = props => {
         // this.setState({kgs: 0, reps: 0});
     };
 
-    const onUpdate = (event) => {
+    // const onUpdate = (event) => {
         // let w = this.state.workout;
         // let s = this.props.workout.selected_workout.workout.exercises[0].sets;
         //
@@ -87,7 +92,7 @@ const WorkoutExerciseWeightRep = props => {
         // w.exercises[0].sets = s;
         //
         // this.setState({workout: w, index: ''});
-    };
+    // };
 
     const onDelete = (event) => {
         // let w = this.state.workout;
@@ -109,7 +114,7 @@ const WorkoutExerciseWeightRep = props => {
 
             <Grid container justify="center">
                 <Remove
-                    className={ classes.iconColor }
+                    className={ classes.minusPlusColor }
                     style={ {marginRight: 20} }
                     color="primary"
                     fontSize="large"
@@ -129,7 +134,7 @@ const WorkoutExerciseWeightRep = props => {
                     onChange={ onChange }
                 />
                 <Add
-                    className={ classes.iconColor }
+                    className={ classes.minusPlusColor }
                     style={ {marginLeft: 20} }
                     color="primary"
                     fontSize="large"
@@ -149,7 +154,7 @@ const WorkoutExerciseWeightRep = props => {
 
             <Grid container justify="center">
                 <Remove
-                    className={ classes.iconColor }
+                    className={ classes.minusPlusColor }
                     color="primary"
                     fontSize="large"
                     style={ {marginRight: 20} }
@@ -171,7 +176,7 @@ const WorkoutExerciseWeightRep = props => {
                 />
 
                 <Add
-                    className={ classes.iconColor }
+                    className={ classes.minusPlusColor }
                     style={ {marginLeft: 20} }
                     color="primary"
                     fontSize="large"

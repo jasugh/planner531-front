@@ -58,13 +58,13 @@ const NextWorkout = props => {
         if (props.login.id) {
             props.onGetNextWorkoutByLoginId(props.login.id);
         }
-    }, [props.login.loading, props.workout.workout.completed]);
+    }, [props.login.loading]);
 
     const classes = styles();
 
     //Buttons on WorkoutDetail-component
     const onDeleteExercise = (exercise) => {
-        props.onDeleteExerciseFromWorkout(exercise.id);
+        props.onDeleteExerciseFromWorkout(exercise.id, props.login.id);
     };
 
     const onStartWorkout = (exercise) => {
@@ -95,13 +95,13 @@ const NextWorkout = props => {
             id: props.workout.workout.id
         };
 
-        props.onAddExerciseToWorkout(id, workoutDay);
+        props.onAddExerciseToWorkout(id, workoutDay, props.login.id);
         setOpenDialog(false);
     };
 
     //Skip this workout (Speed Dial)
     const onSkipWorkout = () => {
-        props.onSkipWorkout(props.workout.workout.id);
+        props.onSkipWorkout(props.workout.workout.id, props);
     };
 
     let errorLines = [];
@@ -203,8 +203,8 @@ const mapDispatchToProps = dispatch => {
         onGetExercises: () => dispatch(actions.getExercises()),
         onGetNextWorkoutByLoginId: (loginId) => dispatch(actions.getNextWorkoutByLoginId(loginId)),
         onSkipWorkout: (id) => dispatch(actions.skipWorkoutById(id)),
-        onDeleteExerciseFromWorkout: (id) => dispatch(actions.deleteExerciseFromWorkout(id)),
-        onAddExerciseToWorkout: (id, workoutDay) => dispatch(actions.addExerciseToWorkout(id, workoutDay))
+        onDeleteExerciseFromWorkout: (id, loginId) => dispatch(actions.deleteExerciseFromWorkout(id, loginId)),
+        onAddExerciseToWorkout: (id, workoutDay, loginId) => dispatch(actions.addExerciseToWorkout(id, workoutDay, loginId))
     };
 };
 

@@ -22,11 +22,13 @@ const styles = makeStyles((theme) => ({
 //Table row selected ->
         tableRow: {
             "&$selected, &$selected:hover": {
-                backgroundColor: theme.palette.primary.light
+                backgroundColor: theme.palette.background.secondary
+                // backgroundColor: '#fafafa'
             }
         },
         selected: {},
 //Table row selected <-
+
         dividerColor: {
             marginTop: 10,
             height:
@@ -43,10 +45,10 @@ const styles = makeStyles((theme) => ({
 // red          f44336
 
         iconColor: {
-            background: theme.palette.primary.A100
+            background: theme.palette.primary.main
         },
         noteAddColorLight: {
-            color: theme.palette.primary.A100
+            color: theme.palette.primary.light
         },
         noteAddColorDark: {
             color: theme.palette.primary.main
@@ -96,17 +98,14 @@ const styles = makeStyles((theme) => ({
 );
 
 const WorkoutExerciseSets = props => {
-    const [index, setIndex] = useState('');
-    // const [kgs, setKgs] = useState('');
-    // const [reps, setReps] = useState('');
     const [notes, setNotes] = useState('');
     const [addNotes, setAddNotes] = useState(true);
-    const [error, setError] = useState('');
     const [dialogOpen, setDialogOpen] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
 
     //Properties
-    const {exercise, onClickRow} = props;
+    const {exercise, onClickRow, index} = props;
+
     //Styling
     const classes = styles();
 
@@ -117,19 +116,6 @@ const WorkoutExerciseSets = props => {
     //     save_update_comment = 'update';
     //     cancel_delete_comment = 'delete';
     // }
-
-    const onClickRowEvent = (i) => {
-        if (i === index) {
-            setIndex('');
-        } else {
-            setIndex(i);
-            // console.log('exercise.exerciseSets[i].kgs', exercise.exerciseSets[i].kgs);
-
-            // setKgs(exercise.exerciseSets[i].kgs);
-            // setReps(exercise.exerciseSets[i].reps);
-        }
-        onClickRow(exercise.exerciseSets[i].kgs, exercise.exerciseSets[i].reps)
-    };
 
     const onOpenDialog = (index) => {
         // if (!isEmpty(this.state.workout.exercises[0].sets[index].comment)) {
@@ -221,7 +207,7 @@ const WorkoutExerciseSets = props => {
                                 </TableCell>
                                 <TableCell
                                     className={ classes.noBorder }
-                                    onClick={ () => onClickRowEvent(i) }
+                                    onClick={ () => onClickRow(sets_row.kgs, sets_row.reps, i) }
                                     name="index"
                                 >
                                     { i + 1 }
@@ -229,7 +215,7 @@ const WorkoutExerciseSets = props => {
                                 <TableCell
                                     className={ classes.kgRep }
                                     style={{fontSize:'1.2rem'}}
-                                    onClick={ () => onClickRowEvent(i) }
+                                    onClick={ () => onClickRow(sets_row.kgs, sets_row.reps, i) }
                                     name="index"
                                     align="right">
                                     { (() => {
@@ -240,7 +226,7 @@ const WorkoutExerciseSets = props => {
                                 <TableCell
                                     className={ classes.kgsReps }
                                     // style={{fontSize:'0.75rem'}}
-                                    onClick={ () => onClickRowEvent(i) }
+                                    onClick={ () => onClickRow(sets_row.kgs, sets_row.reps, i) }
                                     name="index"
                                     align="right">
                                     kgs
@@ -248,7 +234,7 @@ const WorkoutExerciseSets = props => {
                                 <TableCell
                                     className={ classes.kgRep }
                                     style={{fontSize:'1.2rem'}}
-                                    onClick={ () => onClickRowEvent(i) }
+                                    onClick={ () => onClickRow(sets_row.kgs, sets_row.reps, i) }
                                     name="index"
                                     align="right">
                                     { sets_row.reps }
@@ -256,7 +242,7 @@ const WorkoutExerciseSets = props => {
                                 <TableCell
                                     className={ classes.kgsReps }
                                     // style={{fontSize:'0.75rem'}}
-                                    onClick={ () => onClickRowEvent(i) }
+                                    onClick={ () => onClickRow(sets_row.kgs, sets_row.reps, i) }
                                     name="index"
                                     align="right">
                                     reps

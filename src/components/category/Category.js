@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {makeStyles} from '@material-ui/core/styles';
+// import PropTypes from 'prop-types';
 
 import {Grid} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
@@ -137,7 +138,7 @@ const Category = props => {
     }
 
     return (
-        <div>
+        <Fragment>
             <Header header={ "Categories" }/>
 
             <Grid container justify='center'>
@@ -162,10 +163,13 @@ const Category = props => {
                 <Loading/>
                 :
                 screenRows }
-
-        </div>
+        </Fragment>
     );
 };
+
+// category.propTypes = {
+//     onAddUpdate: PropTypes.func,
+// };
 
 const mapStateToProps = state => {
     return {

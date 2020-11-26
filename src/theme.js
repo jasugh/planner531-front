@@ -3,24 +3,27 @@ import {createMuiTheme} from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
     palette: {
-        // primary: {
-        //     main: '#009688'
-        // },
         primary: {
-            main: '#19857b',
-            dark: '#00695f',
-            light:  teal['50']
+            light: '#4cb2a8',
+            main: '#008279',
+            dark: '#00554d',
+            contrastText: '#ffffff',
         },
         secondary: {
-            main: '#f44336',
+            light: '#ff5d46',
+            main: '#c9251c',
+            dark: '#900000',
+            contrastText: '#ffffff',
         },
         background: {
             default: '#fff',
-            list: deepOrange
+            secondary:  '#e0e0e0'
         },
+        button: {
+            secondary: '#e0e0e0'
+        }
     },
     spacing: 5,
-
     overrides: {
         MuiTableCell: {
             root: {
