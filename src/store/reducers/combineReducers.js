@@ -8,8 +8,9 @@ import assistanceExerciseReducer from './assistanceExerciseReducer';
 import startingDetailsReducer from './startingDetailsReducer';
 import workoutDayReducer from './workoutDayReducer';
 import workoutReducer from './workoutReducer';
-import errorReducer from './errorReducer';
 import workoutRoutineReducer from './workoutRoutineReducer';
+import restTimerReducer from './restTimerReducer';
+import errorReducer from './errorReducer';
 
 export default combineReducers({
     loginReducer: loginReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
     workoutDayReducer: workoutDayReducer,
     workoutReducer: workoutReducer,
     workoutRoutineReducer: workoutRoutineReducer,
+    restTimerReducer: restTimerReducer,
     errorReducer: errorReducer
 });

@@ -49,23 +49,6 @@ const MainExerciseDetails = props => {
     return (
         <Grid container justify="center">
             <form>
-                {/*<Typography*/ }
-                {/*    variant="subtitle2"*/ }
-                {/*    color="primary"*/ }
-                {/*>*/ }
-                {/*    Main Exercise:*/ }
-                {/*</Typography>*/ }
-                {/*<TextField*/ }
-                {/*    value={ mainExerciseData.name }*/ }
-                {/*    error={ error.field === "name" }*/ }
-                {/*    helperText={ error.message }*/ }
-                {/*    onChange={ onChange }*/ }
-                {/*    required*/ }
-                {/*    id="name"*/ }
-                {/*    name="name"*/ }
-                {/*    fullWidth*/ }
-                {/*/>*/ }
-
                 <Typography
                     style={ {paddingTop: 10} }
                     variant="subtitle2"

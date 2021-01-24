@@ -12,7 +12,7 @@ import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import Header from '../../common/Header';
 import WorkoutDetails from './WorkoutDetails';
 import Loading from '../../common/Loading';
-import AddExercise from './AddExercise';
+import AddExercise from '../nextWorkout/workoutExercises/AddExercise';
 import {Add, SkipNext} from '@material-ui/icons';
 import Workout from '../workoutExercise/WorkoutExercise';
 import WorkoutExercise from '../workoutExercise/WorkoutExercise';

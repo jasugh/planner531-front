@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
 
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from '@material-ui/core/styles';
-import {Grid} from '@material-ui/core';
 import Select from '@material-ui/core/Select';
-import List from '@material-ui/core/List';
 
 const styles = makeStyles((theme) => ({
     layout: {
@@ -38,9 +35,9 @@ const styles = makeStyles((theme) => ({
 const AddExercise = props => {
     const [selectedExerciseId, setSelectedExerciseId] = useState('');
 
-    //Properties
-    const {exercises, openDialog, handleCloseDialog, onAddSelectedExercise} = props;
-    //Styling
+    // Properties
+    const {assistanceExercises, exerciseDialogOpen, onCloseExerciseDialog, onAddSelectedExercise} = props;
+    // Styling
     const classes = styles();
 
     const onChange = (event) => {
@@ -59,7 +56,7 @@ const AddExercise = props => {
             <option value="">
                 Select exercise...
             </option>
-            { exercises.map((row, index) => {
+            { assistanceExercises.map((row, index) => {
                 return (
                     <option key={ row.name } value={ row.id }>
                         { row.name }
@@ -70,7 +67,7 @@ const AddExercise = props => {
     );
 
     return (
-        <Dialog open={ openDialog } onClose={ handleCloseDialog } aria-labelledby="form-dialog-title">
+        <Dialog open={ exerciseDialogOpen } onClose={ onCloseExerciseDialog } aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Add Exercise</DialogTitle>
             <DialogContent className={classes.layout}>
                 <DialogContentText/>
@@ -87,7 +84,7 @@ const AddExercise = props => {
                     add
                 </Button>
                 <Button
-                    onClick={ handleCloseDialog }
+                    onClick={ onCloseExerciseDialog }
                     className={ classes.buttonPadding }
                     size={ "medium" }
                     variant={ "contained" }

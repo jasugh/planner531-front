@@ -1,17 +1,14 @@
-import {
-    START_REST_TIMER,
-    STOP_REST_TIMER
-} from "./types";
+import * as actionTypes from '../actions/actionTypes';
 
-export const startRestTimer = (restTimer) => dispatch => {
+export const startRestTimer = restTime => dispatch => {
     dispatch({
-        type: START_REST_TIMER,
-        payload: restTimer
+        type: actionTypes.START_REST_TIMER,
+        restTime: restTime
     });
 };
 
 export const stopRestTimer = () => dispatch => {
     dispatch({
-        type: STOP_REST_TIMER,
+        type: actionTypes.STOP_REST_TIMER,
     });
 };

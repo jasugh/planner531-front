@@ -47,7 +47,8 @@ export {
     getWorkoutDaysByLoginId,
     addWorkoutDays,
     addExerciseToWorkout,
-    deleteExerciseFromWorkout
+    deleteExerciseFromWorkout,
+    updateExerciseSets,
 } from './workouDayActions';
 
 export {
@@ -59,6 +60,12 @@ export {
 export {
     getRoutineExerciseById
 } from './workoutRoutineActions';
+
+export {
+    startRestTimer,
+    stopRestTimer
+} from './restTimerActions';
+
 
 export {
     sendError,

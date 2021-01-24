@@ -38,6 +38,11 @@ const workoutDayReducer = (state = initialState, action) => {
                 ...state,
                 workoutDays: action.workoutDays
             };
+        case actionTypes.UPDATE_WORKOUT_SETS :
+            return {
+                ...state,
+                workoutDays: action.workoutDays
+            };
         default:
             return state;
     }

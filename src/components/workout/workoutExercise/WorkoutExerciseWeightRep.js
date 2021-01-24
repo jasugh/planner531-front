@@ -8,8 +8,6 @@ import isEmpty from '../../../validation/is-empty';
 import Add from '@material-ui/icons/Add';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
-import WorkoutExerciseSets from './WorkoutExerciseSets';
-
 
 const styles = makeStyles((theme) => ({
         //Kgs and Reps input
@@ -19,9 +17,6 @@ const styles = makeStyles((theme) => ({
         },
         inputSize: {
             width: 100,
-        },
-        iconColor: {
-            background: theme.palette.primary.light
         },
         minusPlusColor: {
             background: theme.palette.button.secondary
@@ -36,13 +31,24 @@ const styles = makeStyles((theme) => ({
 
 const WorkoutExerciseWeightRep = props => {
     //Properties
-    const {kgs, reps, index, error,  onAddKgs, onReduceKgs, onAddReps, onReduceReps, onSave, onUpdate} = props;
+    const {
+        kgs,
+        reps,
+        index,
+        error,
+        onAddKgs,
+        onReduceKgs,
+        onAddReps,
+        onReduceReps,
+        onSave,
+        onUpdate,
+        onChange,
+        onClear,
+        onDelete
+    } = props;
 
     //Styling
     const classes = styles();
-
-    useEffect(() => {
-    }, []);
 
     let save_update = 'update';
     let clear_delete = 'delete';
@@ -51,54 +57,6 @@ const WorkoutExerciseWeightRep = props => {
         save_update = 'save';
         clear_delete = 'clear';
     }
-
-    // const onSave = (event) => {
-        // if (this.state.reps < 1) {
-        //     setError({error: {reps: 'Please enter Reps'}});
-        //     return;
-        // }
-        //
-        // let w = this.state.workout;
-        // let s = this.props.workout.selected_workout.workout.exercises[0].sets;
-        //
-        // const set = {
-        //     kgs: this.state.kgs,
-        //     reps: this.state.reps,
-        //     comment: '',
-        //     finished: false
-        // };
-        //
-        // s.push(set);
-        // w.exercises[0].sets = s;
-        //
-        // this.setState({workout: w});
-    // };
-
-    const onChange = (event) => {
-        // this.setState({[event.target.name]: event.target.value});
-    };
-
-
-    const onClear = (event) => {
-        // this.setState({kgs: 0, reps: 0});
-    };
-
-    // const onUpdate = (event) => {
-        // let w = this.state.workout;
-        // let s = this.props.workout.selected_workout.workout.exercises[0].sets;
-        //
-        // s[this.state.index].kgs = this.state.kgs;
-        // s[this.state.index].reps = this.state.reps;
-        // w.exercises[0].sets = s;
-        //
-        // this.setState({workout: w, index: ''});
-    // };
-
-    const onDelete = (event) => {
-        // let w = this.state.workout;
-        // w.exercises[0].sets.splice(this.state.index, 1);
-        // this.setState({workout: w, index: ''});
-    };
 
     return (
         <>
@@ -140,6 +98,14 @@ const WorkoutExerciseWeightRep = props => {
                     fontSize="large"
                     onClick={ onAddKgs }
                 />
+            </Grid>
+
+            <Grid container justify="center">
+                <FormHelperText
+                    error={ !isEmpty(error.kgs) }
+                >
+                    { error.kgs }
+                </FormHelperText>
             </Grid>
 
             <Grid container justify="center">

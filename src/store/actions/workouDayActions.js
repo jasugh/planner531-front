@@ -99,6 +99,26 @@ export  const deleteExerciseFromWorkout = (exerciseId, userId) => {
     };
 }
 
+export  const updateExerciseSets = (exerciseSets, woDayExerciseId, userId) => {
+    return dispatch => {
+        dispatch(clearError());
+        dispatch(loadingWorkoutDays());
+
+         axios.put(`/api/plan/${ woDayExerciseId }/sets`, exerciseSets)
+            .then(res => {
+                dispatch(updateSets(res.data));
+                dispatch(stopLoadingWorkoutDays());
+
+                //Get updated workout exercises
+                dispatch(getNextWorkoutByLoginId(userId))
+            })
+            .catch(error => {
+                dispatch(setError(error.response.data.message, error.response.data.field));
+                dispatch(stopLoadingWorkoutDays());
+            });
+    };
+}
+
 export const getWorkoutDaysData = (workoutDaysData) => {
     return {
         type: actionTypes.GET_WORKOUT_DAY,
@@ -123,6 +143,13 @@ export const addExerciseToWo = workoutDaysData => {
 export const deleteExerciseFromWo = workoutDaysData => {
     return {
         type: actionTypes.DELETE_EXERCISE_FROM_WORKOUT,
+        workoutDays: workoutDaysData
+    };
+};
+
+export const updateSets = workoutDaysData => {
+    return {
+        type: actionTypes.UPDATE_WORKOUT_SETS,
         workoutDays: workoutDaysData
     };
 };

@@ -11,7 +11,7 @@ const AssistanceExercise = props => {
     const [open, setOpen] = useState('');
 
     useEffect(() => {
-        props.onGetAssistanceExercises();
+        // props.onGetAssistanceExercises();
         props.onGetExercises();
         props.onGetMainExercises(props.login.id);
     }, []);

@@ -6,10 +6,9 @@ export const getAssistanceExercises = () => {
     return dispatch => {
         dispatch(clearError());
         dispatch(loadingAssistanceExercises());
-
-        axios.get('/api/assistance/',)
+       axios.get('/api/assistance/',)
             .then(response => {
-                if (!response.data) {
+               if (!response.data) {
                     dispatch(getAllAssistanceExercise([]));
                 } else {
                     dispatch(getAllAssistanceExercise(response.data));

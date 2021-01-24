@@ -16,6 +16,9 @@ import {NoteAdd} from '@material-ui/icons';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 const styles = makeStyles((theme) => ({
@@ -59,8 +62,7 @@ const styles = makeStyles((theme) => ({
         ,
         inputSize: {
             width: 100,
-        }
-        ,
+        },
 //Table
         noBorder: {
             border: 0,
@@ -93,18 +95,46 @@ const styles = makeStyles((theme) => ({
         },
         typography: {
             padding: theme.spacing(2),
-        }
+        },
+        //Fab
+        fabTop: {
+            position: 'fixed',
+            top: theme.spacing(10),
+            right: theme.spacing(2),
+        },
+        fabBottom: {
+            position: "fixed",
+            margin: theme.spacing(1),
+            bottom: theme.spacing(2),
+            right: theme.spacing(3),
+            opacity: 0.8
+        },
     })
 );
 
 const WorkoutExerciseSets = props => {
-    const [notes, setNotes] = useState('');
-    const [addNotes, setAddNotes] = useState(true);
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const [alertOpen, setAlertOpen] = useState(false);
 
     //Properties
-    const {exercise, onClickRow, index} = props;
+    const {
+        exerciseSets,
+        index,
+        notes,
+        addNotes,
+        dialogOpen,
+        alertOpen,
+        onClickRow,
+        onOpenNotesDialog,
+        onCloseNotesDialog,
+        onChangeNotes,
+        onSaveNotes,
+        onDeleteNotes,
+        onClickFinished,
+        onGoBack,
+        onAlertClose,
+        onGo,
+        onStay,
+
+    } = props;
 
     //Styling
     const classes = styles();
@@ -112,82 +142,16 @@ const WorkoutExerciseSets = props => {
     let save_update_comment = 'save';
     let cancel_delete_comment = 'cancel';
 
-    // if (this.state.add_comment === false) {
-    //     save_update_comment = 'update';
-    //     cancel_delete_comment = 'delete';
-    // }
-
-    const onOpenDialog = (index) => {
-        // if (!isEmpty(this.state.workout.exercises[0].sets[index].comment)) {
-        //     this.setState({
-        //         comment: this.state.workout.exercises[0].sets[index].comment
-        //     });
-        //
-        //     this.setState({add_comment: false})
-        // } else {
-        //     this.setState({add_comment: true})
-        // }
-        //
-        // this.setState({dialogOpen: true, index: index});
-    };
-
-    const onCloseDialog = (event) => {
-        // this.setState({dialogOpen: false, comment: ''});
-    };
-
-    const onClickFinished = (i, event) => {
-        // let w = this.state.workout;
-        // let s = this.state.workout.exercises[0].sets;
-        //
-        // s[index].finished = !s[index].finished;
-        // w.exercises[0].sets = s;
-        // this.setState({workout: w});
-        //
-        // if (s[index].finished) {
-        //     this.startTimer();
-        // }
-    };
-
-    const onAlertClose = (event) => {
-        setAlertOpen(false);
-    };
-
-    const onStay = () => {
-        setAlertOpen(false);
-    };
-
-    const onGo = () => {
-        setAlertOpen(false);
-        // this.props.history.push('/workout/calendar');
-    };
-
-    const onChange = (event) => {
-        // this.setState({[event.target.name]: event.target.value});
-    };
-
-    const onSaveComment = (event) => {
-        let w = this.state.workout;
-        let s = this.state.workout.exercises[0].sets;
-
-        s[this.state.index].comment = this.state.comment;
-        w.exercises[0].sets = s;
-        this.setState({workout: w, dialogOpen: false, index: '', comment: ''});
-    };
-
-    const onDeleteComment = (event) => {
-        let w = this.state.workout;
-        let s = this.state.workout.exercises[0].sets;
-
-        s[this.state.index].comment = '';
-        w.exercises[0].sets = s;
-        this.setState({workout: w, dialogOpen: false, index: ''});
-    };
+    if (addNotes === false) {
+        save_update_comment = 'update';
+        cancel_delete_comment = 'delete';
+    }
 
     return (
         <Grid container justify="center">
             <Table size="small">
                 <TableBody>
-                    { exercise.exerciseSets.map((sets_row, i) => {
+                    { exerciseSets.map((sets_row, i) => {
                         return (
                             <TableRow
                                 classes={ {selected: classes.selected} }
@@ -200,7 +164,7 @@ const WorkoutExerciseSets = props => {
                                     <IconButton
                                         className={ sets_row.notes.length === 0 ? classes.noteAddColorLight : classes.noteAddColorDark }
                                         style={ {padding: 0} }
-                                        onClick={ onOpenDialog }
+                                        onClick={ () => onOpenNotesDialog(i) }
                                     >
                                         <NoteAdd/>
                                     </IconButton>
@@ -253,9 +217,8 @@ const WorkoutExerciseSets = props => {
                                         color="primary"
                                     >
                                         <Checkbox
-                                            className={ classes.customCheckBox }
                                             style={ {padding: 0} }
-                                            onChange={ (event) => onClickFinished(event, i) }
+                                            onChange={ () => onClickFinished(i) }
                                             value="finished"
                                             checked={ sets_row.finished }
                                             color="primary"
@@ -295,22 +258,22 @@ const WorkoutExerciseSets = props => {
 
 
             <Dialog open={ dialogOpen }
-                    onClose={ onCloseDialog }
+                    onClose={ onCloseNotesDialog }
                     aria-labelledby="form-dialog-title">
                 <DialogTitle
                     id="form-dialog-title">
-                    Comment
+                    Notes
                 </DialogTitle>
                 <DialogContent>
                     {/*<DialogContentText>*/ }
                     {/*</DialogContentText>*/ }
                     <TextField
                         value={ notes }
-                        onChange={ onChange }
+                        onChange={ onChangeNotes }
                         autoFocus
                         margin="dense"
                         name="comment"
-                        label="Comment"
+                        label="Notes"
                         type="text"
                         fullWidth
                         multiline={ true }
@@ -326,7 +289,7 @@ const WorkoutExerciseSets = props => {
                         size="small"
                         variant={ "contained" }
                         color="primary"
-                        onClick={ onSaveComment }
+                        onClick={ onSaveNotes }
                     >
                         { save_update_comment }
                     </Button>
@@ -339,13 +302,29 @@ const WorkoutExerciseSets = props => {
                         } }
                         size="small"
                         variant={ "contained" }
-                        color="inherit"
-                        onClick={ addNotes ? onCloseDialog : onDeleteComment }
+                        color={ addNotes ? "inherit" : "secondary" }
+                        onClick={ addNotes ? onCloseNotesDialog : onDeleteNotes }
                     >
                         { cancel_delete_comment }
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Fab
+                className={ classes.fabBottom }
+                color="primary"
+                aria-label="goBack"
+                onClick={ () => onGoBack(exerciseSets) }
+            >
+                <Tooltip
+                    title={ "Go back" }
+                >
+                    <ArrowBackIcon
+                        color="inherit"
+                    />
+                </Tooltip>
+            </Fab>
+
         </Grid>
 
     );

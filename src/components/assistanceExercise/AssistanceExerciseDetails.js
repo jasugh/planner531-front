@@ -13,10 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = makeStyles((theme) => ({
-        exerciseRow: {
-            paddingLeft: theme.spacing(10),
-            background: '#fafafa'
-        },
         deleteIcon: {
             color: theme.palette.secondary.main,
             fontSize: 20
@@ -46,7 +42,7 @@ const AssistanceExerciseDetails = props => {
 
                     //Select drop down
                     collapseLines.push(
-                        <div style={ {paddingLeft: 15, paddingRight: 15} }>
+                        <div key={mainExercise_row.id} style={ {paddingLeft: 15, paddingRight: 15} }>
                             <Select
                                 key={ "S" + i }
                                 native

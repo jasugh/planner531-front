@@ -1,22 +1,18 @@
 import React, {useEffect, useState} from 'react';
-
-import {makeStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import {Button, Grid} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import {Button, Grid} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
-import Divider from "@material-ui/core/Divider";
-
-import WorkoutHeader from './WorkoutHeader';
 import {DeleteOutline} from '@material-ui/icons';
-
+import {makeStyles} from '@material-ui/core/styles';
 
 const styles = makeStyles((theme) => ({
         kgsReps: {
@@ -65,26 +61,25 @@ const styles = makeStyles((theme) => ({
         },
         deleteIcon: {
             color: theme.palette.secondary.main,
-        },
-        fab: {
-            top: theme.spacing(2),
-            right: theme.spacing(2),
-        },
+        }
     })
 );
 
-const WorkoutDetails = props => {
+const ExercisesList = props => {
     const [draggedExercise, setDraggedExercise] = useState(-1);
     const [exercises, setExercises] = useState([]);
 
+    // Properties
+    const {workout, onStartWorkout, onDeleteExercise} = props;
+    // Styling
+    const classes = styles();
+
     useEffect(() => {
-        setExercises(props.workout.exerciseDays);
+        setExercises(workout.exerciseDays);
     }, []);
 
-    //Properties
-    const {onStartWorkout, onDeleteExercise} = props;
-    //Styling
-    const classes = styles();
+    //*************************************************************************
+    // Drag and drop events
 
     const onDragEvent = (event, i) => {
         event.preventDefault();
@@ -110,12 +105,9 @@ const WorkoutDetails = props => {
         const newSortedArray = [...exercises];
         setExercises(newSortedArray);
     };
+    //*************************************************************************
 
-    
-
-
-    let workoutTable = [];
-    workoutTable =
+    return (
         <div>
             { exercises.map((exercise_row, i) => {
                 return (
@@ -228,16 +220,8 @@ const WorkoutDetails = props => {
                     </div>
                 );
             }) }
-        </div>;
-
-    return (
-        <>
-            <WorkoutHeader
-                workout={ props.workout }
-            />
-            { workoutTable }
-        </>
+        </div>
     );
 };
 
-export default WorkoutDetails;
+export default ExercisesList;

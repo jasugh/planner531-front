@@ -15,7 +15,11 @@ import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import Divider from "@material-ui/core/Divider";
 
 import WorkoutHeader from './WorkoutHeader';
-import {DeleteOutline} from '@material-ui/icons';
+import {Add, DeleteOutline, SkipNext} from '@material-ui/icons';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import AddExercise from '../nextWorkout/workoutExercises/AddExercise';
 
 
 const styles = makeStyles((theme) => ({
@@ -73,7 +77,7 @@ const styles = makeStyles((theme) => ({
     })
 );
 
-const WorkoutDetails = props => {
+const ExercisesDetails = props => {
     const [draggedExercise, setDraggedExercise] = useState(-1);
     const [exercises, setExercises] = useState([]);
 
@@ -111,8 +115,44 @@ const WorkoutDetails = props => {
         setExercises(newSortedArray);
     };
 
-    
+    let fabLines = [];
+    fabLines =
+        <div>
+            <SpeedDial
+                ariaLabel="SpeedDial example"
+                className={ classes.speedDial }
+                hidden={ hidden }
+                icon={ <SpeedDialIcon/> }
+                onClose={ handleCloseSpeedDial }
+                onOpen={ handleOpenSpeedDial }
+                open={ openSpeedDial }
+            >
+                <SpeedDialAction
+                    key='start'
+                    icon={ <Add/> }
+                    tooltipTitle='Add exercise'
+                    onClick={ onAddExercise }
+                    title='Add exercise'
+                />
+                <SpeedDialAction
+                    key='skip'
+                    icon={ <SkipNext/> }
+                    tooltipTitle='Skip workout'
+                    onClick={ onSkipWorkout }
+                    title='Skip workout'
+                />
+            </SpeedDial>
+        </div>;
 
+
+    let addExercise = [];
+    addExercise =
+        <AddExercise
+            exercises={ props.exercise.exercises }
+            openDialog={ openDialog }
+            handleCloseDialog={ handleCloseDialog }
+            onAddSelectedExercise={ onAddSelectedExercise }
+        />;
 
     let workoutTable = [];
     workoutTable =
@@ -235,9 +275,11 @@ const WorkoutDetails = props => {
             <WorkoutHeader
                 workout={ props.workout }
             />
+            { fabLines }
             { workoutTable }
+            { addExercise }
         </>
     );
 };
 
-export default WorkoutDetails;
+export default ExercisesDetails;
