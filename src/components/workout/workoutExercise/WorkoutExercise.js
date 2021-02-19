@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from 'react';
-
-// import {connect} from 'react-redux';
+import React, {useEffect, useRef, useState} from 'react';
 
 import WorkoutExerciseWeightRep from './WorkoutExerciseWeightRep';
 import WorkoutExerciseSets from './WorkoutExerciseSets';
 import isEmpty from '../../../validation/is-empty';
 import Header from '../../common/Header';
-// import * as actions from '../../../store/actions';
 
 const WorkoutExercise = props => {
     // <WorkoutExerciseWeightRep>
@@ -21,6 +18,9 @@ const WorkoutExercise = props => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
 
+    const exerciseSetsRef = useRef(null);
+    exerciseSetsRef.current = exerciseSets;
+
     //Properties
     const {exercise, onGoBack, startTimer, stopTimer, onUpdateSets} = props;
 
@@ -29,9 +29,11 @@ const WorkoutExercise = props => {
         setKgs(exercise.exerciseSets[props.exercise.exerciseSets.length - 1].kgs);
         setReps(exercise.exerciseSets[props.exercise.exerciseSets.length - 1].reps);
 
-        return (() => {
-            onUpdateSets(exerciseSets)
-        });
+        return (() => onUpdateSets(exerciseSetsRef.current));
+    }, []);
+
+    useEffect(() => {
+
     }, []);
     //*************************************************************************
     // <WorkoutExerciseWeightRep>
@@ -197,29 +199,38 @@ const WorkoutExercise = props => {
         // Start/stop rest timer
         if (set.finished) {
             startTimer(props.exercise.restTime);
+
+            //Check if all exercises are finished. If yes -> go back
+            let f = newExerciseSets.filter(f => f.finished === true).length;
+
+            if (f === exerciseSets.length) {
+                setAlertOpen(true);
+            }
         }
+
         if (!set.finished) {
             stopTimer();
         }
     };
 
     const onAlertClose = () => {
-        // setAlertOpen(false);
+        setAlertOpen(false);
     };
 
     const onStay = () => {
-        // setAlertOpen(false);
+        setAlertOpen(false);
     };
 
     const onGo = () => {
-        // setAlertOpen(false);
-        // this.props.history.push('/workout/calendar');
+        setAlertOpen(false);
+        onGoBack();
     };
     //*************************************************************************
 
     return (
         <>
             <Header header={ exercise.exerciseName }/>
+
             <WorkoutExerciseWeightRep
                 kgs={ kgs }
                 reps={ reps }
@@ -258,19 +269,4 @@ const WorkoutExercise = props => {
     );
 };
 
-export default  WorkoutExercise;
-
-// const mapStateToProps = state => {
-//     return {
-//         login: state.loginReducer,
-//     };
-// };
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onUpdateExerciseSets: (exerciseSets, woDayExerciseId, loginId) =>
-//             dispatch(actions.updateExerciseSets(exerciseSets, woDayExerciseId, loginId))
-//     };
-// };
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(WorkoutExercise);
+export default WorkoutExercise;

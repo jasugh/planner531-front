@@ -12,7 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import {NoteAdd} from '@material-ui/icons';
+import {Note, NoteAdd} from '@material-ui/icons';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
@@ -113,7 +113,6 @@ const styles = makeStyles((theme) => ({
 );
 
 const WorkoutExerciseSets = props => {
-
     //Properties
     const {
         exerciseSets,
@@ -133,7 +132,6 @@ const WorkoutExerciseSets = props => {
         onAlertClose,
         onGo,
         onStay,
-
     } = props;
 
     //Styling
@@ -160,13 +158,14 @@ const WorkoutExerciseSets = props => {
                                 selected={ i === index }
                                 key={ i }
                             >
+                                {/*TODO: korjaa alla olevat notes staten viittaukset */}
                                 <TableCell className={ classes.noBorder }>
                                     <IconButton
                                         className={ sets_row.notes.length === 0 ? classes.noteAddColorLight : classes.noteAddColorDark }
                                         style={ {padding: 0} }
                                         onClick={ () => onOpenNotesDialog(i) }
                                     >
-                                        <NoteAdd/>
+                                        {sets_row.notes.length === 0 ? <NoteAdd/> :  <Note/>}
                                     </IconButton>
                                 </TableCell>
                                 <TableCell
@@ -314,7 +313,7 @@ const WorkoutExerciseSets = props => {
                 className={ classes.fabBottom }
                 color="primary"
                 aria-label="goBack"
-                onClick={ () => onGoBack(exerciseSets) }
+                onClick={ () => onGoBack() }
             >
                 <Tooltip
                     title={ "Go back" }

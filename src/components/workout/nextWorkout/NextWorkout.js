@@ -26,12 +26,19 @@ const styles = makeStyles((theme) => ({
 const NextWorkout = props => {
     const [selectedExercise, setSelectedExercise] = useState({});
     const [startWorkout, setStartWorkout] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (props.login.id) {
             props.onGetNextWorkoutByLoginId(props.login.id);
         }
     }, [props.login.loading]);
+
+    useEffect(() => {
+        if (!props.login.loading && !props.workout.loading) {
+            setLoading(false);
+        }
+    }, [props.login.loading, props.workout.loading]);
 
     //Styling
     const classes = styles();
@@ -40,11 +47,14 @@ const NextWorkout = props => {
     // <WorkoutExercise>
     //*************************************************************************
     const onGoBack = (exerciseSets) => {
-        props.onUpdateExerciseSets(exerciseSets, selectedExercise.id, props.login.id);
         setStartWorkout(!startWorkout);
     };
 
     const onUpdateSets = (exerciseSets) => {
+
+        console.log('onUpdateSets', exerciseSets)
+
+        setLoading(true);
         props.onUpdateExerciseSets(exerciseSets, selectedExercise.id, props.login.id);
     };
 
@@ -95,7 +105,7 @@ const NextWorkout = props => {
     //*************************************************************************
     return (
         <>
-            { props.login.loading || props.workout.loading ?
+            { props.login.loading || props.workout.loading || loading ?
                 <Loading/>
                 :
                 <div>

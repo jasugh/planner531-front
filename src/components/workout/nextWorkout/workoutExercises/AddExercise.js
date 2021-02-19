@@ -80,6 +80,7 @@ const AddExercise = props => {
                     size={ "medium" }
                     variant={ "contained" }
                     color="primary"
+                    disabled={!selectedExerciseId}
                 >
                     add
                 </Button>

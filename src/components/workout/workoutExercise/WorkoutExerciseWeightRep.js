@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Remove from '@material-ui/icons/Remove';
@@ -8,6 +7,7 @@ import isEmpty from '../../../validation/is-empty';
 import Add from '@material-ui/icons/Add';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
+import {makeStyles} from '@material-ui/core/styles';
 
 const styles = makeStyles((theme) => ({
         //Kgs and Reps input
@@ -161,13 +161,7 @@ const WorkoutExerciseWeightRep = props => {
             <Grid container justify="space-evenly">
                 <Button
                     className={ classes.buttonPadding }
-                    // style={ {
-                    //     width: 150,
-                    //     marginTop: 10,
-                    //     marginBottom: 10
-                    // } }
-                    size="small"
-                    variant={ "contained" }
+                    variant="contained"
                     color="primary"
                     onClick={ index === '' ? onSave : onUpdate }
                 >
@@ -175,13 +169,7 @@ const WorkoutExerciseWeightRep = props => {
                 </Button>
                 <Button
                     className={ classes.buttonPadding }
-                    // style={ {
-                    //     width: 150,
-                    //     marginTop: 10,
-                    //     marginBottom: 10
-                    // } }
-                    size="small"
-                    variant={ "contained" }
+                    variant="contained"
                     color={ index === '' ? "inherit" : "secondary" }
                     onClick={ index === '' ? onClear : onDelete }
                 >

@@ -26,10 +26,12 @@ import {LinearProgress} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
         progressBar: {
-            marginTop:64,
             position: 'fixed',
             width: '100%',
-            // height: 100
+            marginTop:64,
+            [theme.breakpoints.down("sm")]: {
+                marginTop:55
+            }
         },
         bar1Determinate: {
             background: theme.palette.secondary.main,
@@ -58,6 +60,8 @@ const Navbar = (props) => {
     useEffect(() => {
         //Set rest time from main exercise data
         setSeconds(props.restTimer.restTime);
+        setCompleted(0);
+        setProgressTime(1);
 
         if (props.restTimer.start && props.restTimer.restTime > 0) {
             setIsActive(true);
