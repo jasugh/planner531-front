@@ -8,7 +8,8 @@ export const authenticateUser = userData => {
     return dispatch => {
         dispatch(clearError());
         dispatch(authStart());
-        // Get token
+
+         // Get token
         axios.post('/api/login/authenticate', userData)
             .then(res => {
                 const token = res.data;
