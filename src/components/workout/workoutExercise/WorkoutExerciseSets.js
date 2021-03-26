@@ -158,14 +158,14 @@ const WorkoutExerciseSets = props => {
                                 selected={ i === index }
                                 key={ i }
                             >
-                                {/*TODO: korjaa alla olevat notes staten viittaukset */}
+                                {/*TODO: korjaa alla olevat notes staten viittaukset */ }
                                 <TableCell className={ classes.noBorder }>
                                     <IconButton
-                                        className={ sets_row.notes.length === 0 ? classes.noteAddColorLight : classes.noteAddColorDark }
+                                        className={ sets_row.notes ? classes.noteAddColorDark : classes.noteAddColorLight }
                                         style={ {padding: 0} }
                                         onClick={ () => onOpenNotesDialog(i) }
                                     >
-                                        {sets_row.notes.length === 0 ? <NoteAdd/> :  <Note/>}
+                                        { sets_row.notes ? <Note/> : <NoteAdd/> }
                                     </IconButton>
                                 </TableCell>
                                 <TableCell
@@ -177,7 +177,7 @@ const WorkoutExerciseSets = props => {
                                 </TableCell>
                                 <TableCell
                                     className={ classes.kgRep }
-                                    style={{fontSize:'1.2rem'}}
+                                    style={ {fontSize: '1.2rem'} }
                                     onClick={ () => onClickRow(sets_row.kgs, sets_row.reps, i) }
                                     name="index"
                                     align="right">
@@ -196,7 +196,7 @@ const WorkoutExerciseSets = props => {
                                 </TableCell>
                                 <TableCell
                                     className={ classes.kgRep }
-                                    style={{fontSize:'1.2rem'}}
+                                    style={ {fontSize: '1.2rem'} }
                                     onClick={ () => onClickRow(sets_row.kgs, sets_row.reps, i) }
                                     name="index"
                                     align="right">

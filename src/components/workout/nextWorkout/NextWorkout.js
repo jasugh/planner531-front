@@ -51,9 +51,6 @@ const NextWorkout = props => {
     };
 
     const onUpdateSets = (exerciseSets) => {
-
-        console.log('onUpdateSets', exerciseSets)
-
         setLoading(true);
         props.onUpdateExerciseSets(exerciseSets, selectedExercise.id, props.login.id);
     };

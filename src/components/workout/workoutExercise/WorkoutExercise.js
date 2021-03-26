@@ -152,7 +152,7 @@ const WorkoutExercise = props => {
 
     const onOpenNotesDialog = (i) => {
         isEmpty(exerciseSets[i].notes ? setAddNotes(false) : setAddNotes(true));
-        setNotes(exerciseSets[i].notes);
+        isEmpty(exerciseSets[i].notes ? setNotes(exerciseSets[i].notes) : setNotes(''));
         setDialogOpen(true);
         setIndex(i);
     };
