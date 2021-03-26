@@ -16,6 +16,8 @@ import * as actions from './store/actions/index';
 import AssistanceExercise from './components/assistanceExercise/AssistanceExercise';
 import MainExercise from './components/mainExercise/MainExercise';
 
+import axios from 'axios';
+
 const styles = makeStyles((theme) => ({
     layout: {
         marginTop: 80,
@@ -33,6 +35,10 @@ const styles = makeStyles((theme) => ({
 const App = props => {
 
     useEffect(() => {
+        if (process.env.NODE_ENV === 'production') {
+            axios.defaults.baseURL = 'https://planner531-back.herokuapp.com';
+        }
+
         props.onTryAutoSignup();
     }, []);
 
