@@ -9,17 +9,15 @@ export const authenticateUser = userData => {
         dispatch(clearError());
         dispatch(authStart());
 
-         // Get token
+        // Get token
         axios.post('/api/login/authenticate', userData)
             .then(res => {
                 const token = res.data;
 
                 // Set token to ls
                 localStorage.setItem('token', 'Bearer ' + token);
-
                 // Set token to Auth header for Axios
                 setAuthToken('Bearer ' + token);
-
                 // Decode token to get user data
                 const decoded = jwt_decode(token);
 
@@ -28,8 +26,21 @@ export const authenticateUser = userData => {
                 // Get user id
                 dispatch(getUserId(userData.loginName));
             })
-            .catch(error => {
-                    dispatch(setError(error.message, ''));
+            .catch(err => {
+                    if (err.response) {
+                        // client received an error response (5xx, 4xx)
+                        if(err.response.data.message) {
+                            dispatch(setError(err.response.data.message, err.response.data.message));
+                        } else {
+                            dispatch(setError(err.response.data, ''));
+                        }
+                    } else if (err.request) {
+                        // client never received a response, or request never left
+                        dispatch(setError('Request ended in error', ''));
+                    } else {
+                        // anything else
+                        dispatch(setError('Unexpected error', ''));
+                    }
                 }
             );
 
