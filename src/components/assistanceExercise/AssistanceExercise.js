@@ -6,7 +6,6 @@ import AssistanceExerciseDetails from './AssistanceExerciseDetails';
 import Loading from '../common/Loading';
 
 const AssistanceExercise = props => {
-    const [assistanceExerciseData, setExerciseData] = useState({});
     const [selectedAssistanceExercise, setSelectedAssistanceExercise] = useState(-1);
     const [open, setOpen] = useState('');
 

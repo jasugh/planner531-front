@@ -79,7 +79,8 @@ const Exercise = props => {
         }
     };
 
-    const onAddUpdate = () => {
+    const onAddUpdate = (event) => {
+        event.preventDefault();
         if (exerciseData.id > 0) {
             props.onChangeExercise(exerciseData);
         } else {

@@ -26,8 +26,6 @@ const styles = makeStyles((theme) => ({
         marginRight: 'auto',
         [theme.breakpoints.down('md')]: {
             width: 335,
-            marginLeft: 'auto',
-            marginRight: 'auto',
         }
     },
 }));

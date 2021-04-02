@@ -39,7 +39,7 @@ const CategoryDetails = props => {
                 </Typography>
                 <TextField
                     value={ categoryData.name }
-                    error={ error.field === "name" || error.field === "exercises"}
+                    error={ error.field === "name" || error.field === "exercises" }
                     helperText={ error.message }
                     onChange={ onChange }
                     required
@@ -59,7 +59,6 @@ const CategoryDetails = props => {
                 <TextField
                     value={ categoryData.notes }
                     onChange={ onChange }
-                    required
                     id="notes"
                     name="notes"
                     fullWidth
@@ -78,7 +77,8 @@ const CategoryDetails = props => {
                     { buttonText }
                 </Button>
                 <Button
-                    disabled={categoryData.id === 0}
+                    type="button"
+                    disabled={ categoryData.id === 0 }
                     className={ classes.buttonPadding }
                     size={ "medium" }
                     variant={ "contained" }
@@ -88,6 +88,7 @@ const CategoryDetails = props => {
                     delete
                 </Button>
                 <Button
+                    type="button"
                     className={ classes.buttonPadding }
                     size={ "medium" }
                     variant={ "contained" }

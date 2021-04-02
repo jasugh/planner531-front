@@ -15,8 +15,6 @@ export const getCategories = () => {
                 }
             })
             .catch(error => {
-
-
                 dispatch(stopLoadingCategories());
             });
     };

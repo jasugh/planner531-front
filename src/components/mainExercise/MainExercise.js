@@ -49,7 +49,9 @@ const MainExercise = props => {
         );
     };
 
-    const onUpdate = () => {
+    const onUpdate = (event) => {
+        event.preventDefault()
+
         props.onUpdateMainExercise(mainExerciseData, props.login.id);
     };
 
@@ -90,14 +92,14 @@ const MainExercise = props => {
     );
 
     return (
-        <>
+        <React.Fragment>
             <Header header={ "Main Exercises" }/>
 
             { props.mainExercise.loading ?
                 <Loading/>
                 :
                 screenRows }
-        </>
+        </React.Fragment>
     );
 };
 

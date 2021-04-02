@@ -14,7 +14,7 @@ const CategoryList = props => {
                 return (
                     <ListItem
                         divider
-                        key={ index }
+                        key={ row.id }
                         index={ index }
                         button
                         onClick={ event => onItemListClick(index) }

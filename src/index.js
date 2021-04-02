@@ -10,11 +10,13 @@ import * as serviceWorker from './serviceWorker';
 import store from './store';
 
 const app = (
-    <Provider store={ store }>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </Provider>
+    <React.StrictMode>
+        <Provider store={ store }>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>
 );
 
 ReactDOM.render(app, document.getElementById('root')

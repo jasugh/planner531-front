@@ -1,4 +1,4 @@
-import {deepOrange, teal} from "@material-ui/core/colors";
+import {teal} from "@material-ui/core/colors";
 import {createMuiTheme} from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
@@ -17,7 +17,7 @@ const theme = createMuiTheme({
         },
         background: {
             default: '#fff',
-            secondary:  '#e0e0e0'
+            secondary: '#e0e0e0'
         },
         button: {
             secondary: '#e0e0e0'

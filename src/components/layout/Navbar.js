@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link as RouterLink} from 'react-router-dom';
 
 import {connect} from 'react-redux';
@@ -28,21 +28,14 @@ const useStyles = makeStyles((theme) => ({
         progressBar: {
             position: 'fixed',
             width: '100%',
-            marginTop:64,
-            [theme.breakpoints.down("sm")]: {
-                marginTop:55
+            marginTop: 56,
+            [theme.breakpoints.up("sm")]: {
+                marginTop: 64
             }
         },
         bar1Determinate: {
             background: theme.palette.secondary.main,
             // background: "linear-gradient(to left, #f44336, #607d8b)",
-        },
-        linearPadding: {
-            sticky: true,
-            marginTop: 64,
-            [theme.breakpoints.down("sm")]: {
-                marginTop: 56
-            }
         },
     })
 );
@@ -77,7 +70,7 @@ const Navbar = (props) => {
         if (isActive) {
             interval = setInterval(() => {
                 setSeconds(seconds - 1);
-                setProgressTime( progressTime + 1);
+                setProgressTime(progressTime + 1);
 
                 progress(progressTime);
 
@@ -186,107 +179,105 @@ const Navbar = (props) => {
 
     return (
         <React.Fragment>
-            <div>
-                <AppBar position="fixed">
-                    <Toolbar>
-                        <Grid container direction="row" alignItems="center" spacing={ 1 }>
-                            <Grid item xs={ 1 }>
-                                <IconButton
-                                    color="inherit"
-                                    aria-label="Open drawer"
-                                    onClick={ onSetDrawerOpen }
-                                >
-                                    <MenuIcon/>
-                                </IconButton>
-                            </Grid>
-
-                            <Grid item xs={ 3 }>
-                                <Box
-                                    style={ {marginLeft: 20} }
-                                    fontSize="h5.fontSize"
-                                    color="inherit"
-                                    // fontWeight="fontWeightBold"
-                                    fontStyle="italic"
-                                >
-                                    5/3/1
-                                </Box>
-                            </Grid>
-
-                            <Grid item xs={ 4 } style={ {textAlign: 'center'} }>
-                                { restTimer }
-                            </Grid>
-
-                            {/*<Grid item xs={ 3 }/>*/ }
-
-                            <Grid item xs={ 4 } style={ {textAlign: 'right'} }>
-                                <section>
-                                    { props.login.authenticated ? authLinks : guestLinks }
-                                </section>
-                            </Grid>
+            <AppBar position="fixed">
+                <Toolbar>
+                    <Grid container direction="row" alignItems="center" spacing={ 1 }>
+                        <Grid item xs={ 1 }>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={ onSetDrawerOpen }
+                            >
+                                <MenuIcon/>
+                            </IconButton>
                         </Grid>
-                    </Toolbar>
-                </AppBar>
 
-                <Drawer
-                    anchor={ "left" }
-                    open={ drawerOpen }
-                    onClose={ onSetDrawerOpen }
-                >
-                    <List>
-                        <ListItem
-                            button
-                            onClick={ onSetDrawerOpen }
-                            component={ renderLink }
-                            to="/workout"
-                        >
-                            <ListItemText primary="Next workout"/>
-                        </ListItem>
-                        <ListItem
-                            button
-                            onClick={ onSetDrawerOpen }
-                            component={ renderLink }
-                            to="/category"
-                        >
-                            <ListItemText primary="Categories"/>
-                        </ListItem>
-                        <ListItem
-                            button
-                            onClick={ onSetDrawerOpen }
-                            component={ renderLink }
-                            to="/exercise"
-                        >
-                            <ListItemText primary="Exercises"/>
-                        </ListItem>
-                        <ListItem
-                            button
-                            onClick={ onSetDrawerOpen }
-                            component={ renderLink }
-                            to="/main"
-                        >
-                            <ListItemText primary="Main Exercises"/>
-                        </ListItem>
-                        <ListItem
-                            button
-                            onClick={ onSetDrawerOpen }
-                            component={ renderLink }
-                            to="/assistance"
-                        >
-                            <ListItemText primary="Assistance Exercises"/>
-                        </ListItem>
-                        <ListItem
-                            button
-                            onClick={ onSetDrawerOpen }
-                            component={ renderLink }
-                            to="/starting"
-                        >
-                            <ListItemText primary="Starting Details"/>
-                        </ListItem>
-                    </List>
-                </Drawer>
-            </div>
+                        <Grid item xs={ 3 }>
+                            <Box
+                                style={ {marginLeft: 20} }
+                                fontSize="h5.fontSize"
+                                color="inherit"
+                                // fontWeight="fontWeightBold"
+                                fontStyle="italic"
+                            >
+                                5/3/1
+                            </Box>
+                        </Grid>
+
+                        <Grid item xs={ 4 } style={ {textAlign: 'center'} }>
+                            { restTimer }
+                        </Grid>
+
+                        {/*<Grid item xs={ 3 }/>*/ }
+
+                        <Grid item xs={ 4 } style={ {textAlign: 'right'} }>
+                            <section>
+                                { props.login.authenticated ? authLinks : guestLinks }
+                            </section>
+                        </Grid>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+
+            <Drawer
+                anchor={ "left" }
+                open={ drawerOpen }
+                onClose={ onSetDrawerOpen }
+            >
+                <List>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/workout"
+                    >
+                        <ListItemText primary="Next workout"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/category"
+                    >
+                        <ListItemText primary="Categories"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/exercise"
+                    >
+                        <ListItemText primary="Exercises"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/main"
+                    >
+                        <ListItemText primary="Main Exercises"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/assistance"
+                    >
+                        <ListItemText primary="Assistance Exercises"/>
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={ onSetDrawerOpen }
+                        component={ renderLink }
+                        to="/starting"
+                    >
+                        <ListItemText primary="Starting Details"/>
+                    </ListItem>
+                </List>
+            </Drawer>
+
             <div className={ classes.progressBar }>
                 <LinearProgress
-                    // className={classes.linearPadding}
                     classes={ {
                         bar1Determinate: classes.bar1Determinate,
                     } }

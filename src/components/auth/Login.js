@@ -19,7 +19,6 @@ const Login = props => {
     const [loginName, setLoginName] = useState('');
     const [password, setPassword] = useState('');
 
-
     const onLogin = (event) => {
         event.preventDefault();
 
@@ -39,7 +38,7 @@ const Login = props => {
     return (
         <div>
             <form>
-                <Grid container justify='center' style={ {marginTop: 20} }>
+                <Grid container justify='center'>
                     { authRedirect }
                     <Grid item>
                         <Card elevation={ 2 }>

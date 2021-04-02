@@ -59,7 +59,9 @@ const Category = props => {
         setButtonText('Add');
     };
 
-    const onAddUpdate = () => {
+    const onAddUpdate = (event) => {
+        event.preventDefault();
+
         if (categoryData.id > 0) {
             props.onChangeCategory(categoryData);
         } else {
@@ -120,7 +122,6 @@ const Category = props => {
         <CategoryList
             categoryList={ props.category.categories }
             onItemListClick={ onItemListClick }
-            loading={ props.category.loading }
         />
     );
 
