@@ -36,7 +36,7 @@ const App = props => {
         if (process.env.NODE_ENV === 'production') {
             axios.defaults.baseURL = 'https://planner531-back.herokuapp.com';
         }
-
+ 
         props.onTryAutoSignup();
     }, []);
 
