@@ -16,7 +16,6 @@ const WorkoutExercisesDetails = props => {
         props.onGetExercises();
     }, []);
 
-    // Properties
     const {workout, loginId, onStartWorkout,} = props;
 
     //*************************************************************************
@@ -85,8 +84,10 @@ const WorkoutExercisesDetails = props => {
             onDeleteExercise={ onDeleteExercise }
         />;
 
+    const fabRef = React.useRef();
+
     return (
-        <>
+        <React.Fragment>
             <Header header={ "Next workout" }/>
             <WorkoutHeader
                 workout={ workout }
@@ -94,7 +95,7 @@ const WorkoutExercisesDetails = props => {
             { fabLines }
             { exercisesList }
             { addExercise }
-        </>
+        </React.Fragment>
     );
 };
 

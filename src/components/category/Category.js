@@ -1,7 +1,6 @@
 import React, {useEffect, useState, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {makeStyles} from '@material-ui/core/styles';
-// import PropTypes from 'prop-types';
 
 import {Grid} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
@@ -140,7 +139,7 @@ const Category = props => {
 
     return (
         <Fragment>
-            <Header header={ "Categories" }/>
+            <Header header={ "Categories" } />
 
             <Grid container justify='center'>
                 <Fab
@@ -159,11 +158,7 @@ const Category = props => {
                     </Tooltip>
                 </Fab>
             </Grid>
-
-            { props.category.loading ?
-                <Loading/>
-                :
-                screenRows }
+            { props.category.loading ? <Loading /> : screenRows }
         </Fragment>
     );
 };

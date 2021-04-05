@@ -17,31 +17,28 @@ const styles = makeStyles((theme) => ({
 );
 
 const SpeedDialButtons = props => {
-
-    // Properties
     const {speedDialOpen, onAddExercise, onSkipWorkout, onCloseSpeedDial, onOpenSpeedDial} = props;
-    // Styling
     const classes = styles();
 
     return (
         <SpeedDial
-            ariaLabel="SpeedDial example"
+            ariaLabel="SpeedDial"
             className={ classes.speedDial }
-            icon={ <SpeedDialIcon/> }
+            icon={ <SpeedDialIcon /> }
             onClose={ onCloseSpeedDial }
             onOpen={ onOpenSpeedDial }
             open={ speedDialOpen }
         >
             <SpeedDialAction
                 key='start'
-                icon={ <Add/> }
+                icon={ <Add /> }
                 tooltipTitle='Add exercise'
                 onClick={ onAddExercise }
                 title='Add exercise'
             />
             <SpeedDialAction
                 key='skip'
-                icon={ <SkipNext/> }
+                icon={ <SkipNext /> }
                 tooltipTitle='Skip workout'
                 onClick={ onSkipWorkout }
                 title='Skip workout'
